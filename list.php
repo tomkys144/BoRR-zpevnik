@@ -13,7 +13,6 @@
     </div>
     <div style="width: 30vw; left: 40vw; top: 12em; position: absolute ; text-align: left; margin: 0">
         <?php
-            error_reporting(E_ALL);
             require_once __DIR__.'/vendor/autoload.php';
             $files = scandir(__DIR__.'/songs/');
             foreach ($files as $f) {
@@ -27,7 +26,6 @@
     </div>
     <div style="width: 30vw; right: 40vw; top: 12em; position: absolute ; text-align: right; margin: 0">
         <?php
-        error_reporting(E_ALL);
         require_once __DIR__.'/vendor/autoload.php';
         $files = scandir(__DIR__.'/songs/');
         foreach ($files as $f) {
@@ -43,7 +41,7 @@
         <button id="left_button" onclick="location.href='index.html'" type="button"><</button>
     </div>
     <div>
-        <button id="right_button" onclick="location.href='songs.html'" type="button">></button>
+        <button id="right_button" onclick="location.href='songs.php'" type="button">></button>
     </div>
 </body>
 </html>

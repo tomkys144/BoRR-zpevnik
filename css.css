@@ -12,6 +12,11 @@ h1{
     text-align: center;
 }
 
+h2{
+    font-size: 2em;
+    text-align: center;
+}
+
 #right_button{
     font-size: 2em;
     position: absolute;
