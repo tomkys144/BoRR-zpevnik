@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rejstřík</title>
+    <title>BoRR zpěvník</title>
+    <link rel="icon" href="borr.png">
     <link rel="stylesheet" href="css.css">
 </head>
 <body>
