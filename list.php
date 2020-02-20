@@ -39,10 +39,10 @@
         ?>
     </div>
     <div>
-        <button id="left_button" onclick="location.href='index.html'" type="button"><</button>
+        <a href="index.html"><button id="left_button" type="button"><</button></a>
     </div>
     <div>
-        <button id="right_button" onclick="location.href='songs.php'" type="button">></button>
+        <a href="songs.php"><button id="right_button" type="button">></button></a>
     </div>
 </body>
 </html>

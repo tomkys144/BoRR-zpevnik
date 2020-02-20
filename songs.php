@@ -22,7 +22,7 @@
                 echo('<h2>' . $object->matter('author') . '</h2>');
                 $previous_song = $song - 1;
                 echo(
-                    '<div>' . $object->body() . '</div>
+                    '<div class="song_body"><p id="song_text">' . $object->body() . '</p></div>
                 <div><form method="post"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit"><</button></form></div>'
                 );
             }
@@ -33,7 +33,7 @@
                 $next_song = $song+1;
                 $previous_song = $song - 1;
                 echo(
-                    '<div>' . $object->body() . '</div>
+                    '<div class="song_body"><p id="song_text">' . $object->body() . '</p></div>
                 <div><form method="post"><input type="hidden" name="number" value="' . $next_song . '"><button id="right_button" type="submit">></button></form></div>
                 <div><form method="post"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit"><</button></form></div>'
                 );
@@ -47,7 +47,7 @@
                 echo('<h2>' . $object->matter('author') . '</h2>');
                 $previous_song = $song - 1;
                 echo(
-                    '<div>' . $object->body() . '</div>
+                    '<div class="song_body"><p id="song_text">' . $object->body() . '</p></div>
                 <div><form method="post"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit"><</button></form></div>'
                 );
             }
@@ -58,7 +58,7 @@
                 $next_song = $song+1;
                 $previous_song = $song - 1;
                 echo(
-                    '<div>' . $object->body() . '</div>
+                    '<div class="song_body"><p id="song_text">' . $object->body() . '</p></div>
                 <div><form method="post"><input type="hidden" name="number" value="' . $next_song . '"><button id="right_button" type="submit">></button></form></div>
                 <div><form method="post"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit"><</button></form></div>'
                 );
