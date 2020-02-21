@@ -31,7 +31,7 @@
                         <a href="help.html"><button class="icon_help"></button></a>
                     </div>
                     <div class="song_body"><p id="song_text">' . $object->body() . '</p></div>
-                    <div><form method="get"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit"><</button></form></div>'
+                    <div><form method="get"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit">&lt;</button></form></div>'
                 );
             }
             else {
@@ -59,8 +59,8 @@
                         <a href="help.html"><button class="icon_help"></button></a>
                     </div>
                     <div class="song_body"><p id="song_text">' . $object->body() . '</p></div>
-                    <div><form method="get"><input type="hidden" name="number" value="' . $next_song . '"><button id="right_button" type="submit">></button></form></div>
-                    <div><form method="get"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit"><</button></form></div>'
+                    <div><form method="get"><input type="hidden" name="number" value="' . $next_song . '"><button id="right_button" type="submit">&gt;</button></form></div>
+                    <div><form method="get"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit">&lt;</button></form></div>'
                 );
             }
         }
