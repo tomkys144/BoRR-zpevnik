@@ -2,17 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BoRR zpěvník</title>
-    <link rel="icon" href="borr.png">
+    <title>BoRR zpěvník - Rejstřík</title>
+    <link rel="icon" href="data/borr.png">
     <link rel="stylesheet" href="css.css">
 </head>
 <body>
     <div>
+        <a href="index.html"><button class="icon_home"></button></a>
+        <a href="help.html"><button class="icon_help"></button></a>
+    </div>
+    <div style="position: absolute; width: 64vw; left: 18vw;top: 0">
         <h1>
             Rejstřík
         </h1>
     </div>
-    <div style="width: 30vw; left: 40vw; top: 12em; position: absolute ; text-align: left; margin: 0">
+    <div style="width: 30vw; left: 50%; top: 12em; transform: translate(-31vw, 0); position: absolute ; text-align: right; margin: 0">
         <?php
             require_once __DIR__.'/vendor/autoload.php';
             $files = scandir(__DIR__.'/songs/');
@@ -20,12 +24,13 @@
                 if ($f === '.' || $f === '..') {
                     continue;
                 }
+                $fnumber = array_search($f, $files);
                 $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__.'/songs/' . $f));
-                echo('<a href="songs/' . $f . '">' . $object->matter('title') . '</a>');
+                echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button id="list" formaction="songs.php" type="submit">' . $object->matter('title') . '</button></form>');
             }
         ?>
     </div>
-    <div style="width: 30vw; right: 40vw; top: 12em; position: absolute ; text-align: right; margin: 0">
+    <div style="width: 30vw; left: 50%; top: 12em; transform: translate(1vw, 0); position: absolute ; text-align: left; margin: 0">
         <?php
         require_once __DIR__.'/vendor/autoload.php';
         $files = scandir(__DIR__.'/songs/');
@@ -34,7 +39,7 @@
                 continue;
             }
             $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__.'/songs/' . $f));
-            echo('<a href="songs/' . $f . '">' . $object->matter('author') . '</a>');
+            echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button id="list" formaction="songs.php" type="submit">' . $object->matter('author') . '</button></form>');
         }
         ?>
     </div>
@@ -42,7 +47,7 @@
         <a href="index.html"><button id="left_button" type="button"><</button></a>
     </div>
     <div>
-        <a href="songs.php"><button id="right_button" type="button">></button></a>
+        <form method="get"><input type="hidden" name="number" value="2"><button formaction="songs.php" id="right_button" type="submit">></button></form>
     </div>
 </body>
 </html>

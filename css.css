@@ -1,6 +1,6 @@
 body{
     background-color: whitesmoke;
-    background-image: url("borr.png");
+    background-image: url("data/borr.png");
     background-repeat: no-repeat;
     background-size: 8em;
     background-position: right top;
@@ -19,7 +19,7 @@ h2{
 
 #right_button{
     font-size: 2em;
-    position: absolute;
+    position: fixed;
     right:0;
     top: 0;
     background: transparent;
@@ -31,14 +31,66 @@ h2{
 
 #left_button{
     font-size: 2em;
-    position: absolute;
+    position: fixed;
     left:0;
-    top: 0;
+    top: 6vw;
     background: transparent;
     border: none;
     color: black;
-    height: 100vh;
+    height: calc(100vh - 60px);
     width: 6vw;
+}
+
+.icon_home{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/home.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
+
+.icon_help{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/help.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
+
+.icon_list{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/list.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
+
+#list{
+    background: transparent;
+    border: none;
+    font-size: 1em;
+}
+
+#list:hover{
+    text-decoration: underline;
 }
 
 #song_text{
@@ -51,6 +103,16 @@ h2{
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
+    top: 270px;
+}
+
+.capo{
+    font-weight: bolder;
+    font-size: 1.5em;
+    width: 20vw;
+    position: absolute;
+    top: 1em;
+    left: 70vw;
 }
 
 wrapper{
