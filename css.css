@@ -1,6 +1,6 @@
 body{
     background-color: whitesmoke;
-    background-image: url("borr.png");
+    background-image: url("data/borr.png");
     background-repeat: no-repeat;
     background-size: 8em;
     background-position: right top;
@@ -33,10 +33,99 @@ h2{
     font-size: 2em;
     position: absolute;
     left:0;
-    top: 0;
+    top: 6vw;
     background: transparent;
     border: none;
     color: black;
-    height: 100vh;
+    height: calc(100vh - 6vw);
     width: 6vw;
+}
+
+#icon_home{
+    position: relative;
+    display: inline-block;
+    width: 6vw;
+    height: 6vw;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/home.svg");
+    background-position: center;
+    background-size: 4vw;
+    background-repeat: no-repeat;
+}
+
+#icon_help{
+    position: relative;
+    display: inline-block;
+    width: 6vw;
+    height: 6vw;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/help.svg");
+    background-position: center;
+    background-size: 4vw;
+    background-repeat: no-repeat;
+}
+
+#icon_list{
+    position: relative;
+    display: inline-block;
+    width: 6vw;
+    height: 6vw;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/list.svg");
+    background-position: center;
+    background-size: 4vw;
+    background-repeat: no-repeat;
+}
+
+#list{
+    background: transparent;
+    border: none;
+    font-size: 1em;
+}
+
+#list:hover{
+    text-decoration: underline;
+}
+
+#song_text{
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.song_body{
+    width: max-content;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+    top: 270px;
+}
+
+wrapper{
+    display: inline-block;
+    position: relative;
+    margin-top: 4ex;
+}
+chord{
+    font-weight: bolder;
+    position: absolute;
+    bottom: 1.6ex;
+}
+verse{
+    font-weight: bolder;
+    position: relative;
+    margin-top: 3em;
+}
+
+verse::after{
+    content: attr(number);
+    font-weight: 700;
+    transform: translateX(-100%);
+    position: absolute;
+    bottom: 0;
 }
