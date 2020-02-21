@@ -1,7 +1,7 @@
 ---
 title: 'Studené nohy'
 author: 'Radůza'
-capo: none
+capo: null
 ---
 
 <verse number="1:"></verse><wrapper><chord>Em</chord></wrapper>Prší, <wrapper><chord>Hm</chord></wrapper>chou<wrapper><chord>Am</chord></wrapper>lím se do <wrapper><chord>Hm</chord></wrapper>svrchníku<br>

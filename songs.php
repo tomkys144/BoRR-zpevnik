@@ -36,10 +36,13 @@
             }
             else {
                 $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__.'/songs/' . $files[$song]));
-                echo('<h1>' . $object->matter('title') . '</h1>');
-                echo('<h2>' . $object->matter('author') . '</h2>');
-                $next_song = $song+1;
+                echo('<div style="position: absolute; width: 64vw; left: 18vw;top: 0"><h1>' . $object->matter('title') . '</h1>');
+                echo('<h2>' . $object->matter('author') . '</h2></div>');
                 $previous_song = $song - 1;
+                $next_song = $song + 1;
+                if ($object->matter('capo') != null){
+                    echo('<div class="capo">Capo ' . $object->matter('capo') . '</div>');
+                }
                 echo(
                     '<!DOCTYPE html>
                     <html lang="en">
