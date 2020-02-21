@@ -3,6 +3,7 @@ title: 'Sing for me'
 author: 'Boris Slavov'
 capo: null
 ---
+
 <wrapper><chord>Am&nbspC&nbspG&nbspD</chord></wrapper><br>
 <verse number="1:"></verse><wrapper><chord>Am</chord></wrapper>Come to me, the night is dark<br>
 <wrapper><chord>C</chord></wrapper>Come to me, the night is long<br>

@@ -134,7 +134,7 @@ verse{
 verse::after{
     content: attr(number);
     font-weight: 700;
-    transform: translateX(-100%);
+    transform: translateX(-120%);
     position: absolute;
     bottom: 0;
 }

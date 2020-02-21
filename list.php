@@ -16,7 +16,7 @@
             Rejstřík
         </h1>
     </div>
-    <div style="width: 30vw; left: 50%; top: 12em; transform: translate(-31vw, 0); position: absolute ; text-align: right; margin: 0">
+    <div style="width: 30vw; left: 50%; top: 12em; transform: translate(-31vw, 0); position: absolute ; text-align: right; margin: 0; font-size: 1.5em">
         <?php
             require_once __DIR__.'/vendor/autoload.php';
             $files = scandir(__DIR__.'/songs/');
@@ -30,7 +30,7 @@
             }
         ?>
     </div>
-    <div style="width: 30vw; left: 50%; top: 12em; transform: translate(1vw, 0); position: absolute ; text-align: left; margin: 0">
+    <div style="width: 30vw; left: 50%; top: 12em; transform: translate(1vw, 0); position: absolute ; text-align: left; margin: 0; font-size: 1.5em">
         <?php
         require_once __DIR__.'/vendor/autoload.php';
         $files = scandir(__DIR__.'/songs/');

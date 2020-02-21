@@ -25,7 +25,7 @@
                         <link rel="stylesheet" href="css.css">
                     </head>
                     <body>
-                    <div>
+                    <div style="position: absolute; top: 0">
                         <a href="index.html"><button class="icon_home"></button></a>
                         <a href="list.php"><button class="icon_list"></button></a>
                         <a href="help.html"><button class="icon_help"></button></a>
@@ -50,7 +50,7 @@
                         <link rel="stylesheet" href="css.css">
                     </head>
                     <body>
-                    <div>
+                    <div style="position: absolute; top: 0">
                         <a href="index.html"><button class="icon_home"></button></a>
                         <a href="list.php"><button class="icon_list"></button></a>
                         <a href="help.html"><button class="icon_help"></button></a>
