@@ -19,7 +19,7 @@ h2{
 
 #right_button{
     font-size: 2em;
-    position: absolute;
+    position: fixed;
     right:0;
     top: 0;
     background: transparent;
@@ -31,7 +31,7 @@ h2{
 
 #left_button{
     font-size: 2em;
-    position: absolute;
+    position: fixed;
     left:0;
     top: 6vw;
     background: transparent;
