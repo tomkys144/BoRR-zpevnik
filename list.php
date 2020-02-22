@@ -38,6 +38,7 @@
             if ($f === '.' || $f === '..') {
                 continue;
             }
+            $fnumber = array_search($f, $files);
             $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__.'/songs/' . $f));
             echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button id="list" formaction="songs.php" type="submit">' . $object->matter('author') . '</button></form>');
         }
