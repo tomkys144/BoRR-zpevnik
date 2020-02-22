@@ -26,7 +26,8 @@
                 }
                 $fnumber = array_search($f, $files);
                 $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__.'/songs/' . $f));
-                echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button id="list" formaction="songs.php" type="submit">' . $object->matter('title') . '</button></form>');
+                $name = str_replace(' ', '&nbsp;', $object->matter('title'));
+                echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button id="list" formaction="songs.php" type="submit">' . $name . '</button></form>');
             }
         ?>
     </div>
@@ -40,7 +41,8 @@
             }
             $fnumber = array_search($f, $files);
             $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__.'/songs/' . $f));
-            echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button id="list" formaction="songs.php" type="submit">' . $object->matter('author') . '</button></form>');
+            $name = str_replace(' ', '&nbsp;', $object->matter('author'));
+            echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button id="list" formaction="songs.php" type="submit">' . $name . '</button></form>');
         }
         ?>
     </div>
