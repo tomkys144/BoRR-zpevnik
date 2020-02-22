@@ -137,4 +137,5 @@ verse::after{
     transform: translateX(-120%);
     position: absolute;
     bottom: 0;
+    width: max-content;
 }
