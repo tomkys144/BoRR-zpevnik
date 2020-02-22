@@ -26,13 +26,12 @@
                         <a href="list.php"><button class="icon_list"></button></a>
                         <a href="help.html"><button class="icon_help"></button></a>
                     </div>
-                    <div style="position: absolute; width: 64vw; left: 18vw;top: 0"><h1>' . $object->matter('title') . '</h1>
-                    <h2>' . $object->matter('author') . '</h2></div>'
-                );
+                    <div style="position: absolute; width: 64vw; left: 18vw;top: 0; max-height: 265px"><h1>' . $object->matter('title') . '</h1>
+                    <h2>' . $object->matter('author') . '</h2>
+                    <div class="song_body"><p id="song_text">' . $object->body() . '</p></div></div>');
                 if ($object->matter('capo') != null){
                     echo('<div class="capo">Capo ' . $object->matter('capo') . '</div>');
                 }
-                echo ('<div class="song_body"><p id="song_text">' . $object->body() . '</p></div>');
                 if ($song == count($files) - 1) {
                     echo ('<div><form method="get"><input type="hidden" name="number" value="' . $previous_song . '"><button id="left_button" type="submit">&lt;</button></form></div>');
                 }
