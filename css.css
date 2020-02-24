@@ -4,7 +4,7 @@ body{
     background-repeat: no-repeat;
     background-size: 8em;
     background-position: right top;
-    font-family: 'Raleway', sans-serif;
+    font-family: 'raleway', sans-serif;
 }
 
 h1{
@@ -83,6 +83,21 @@ h2{
     background-repeat: no-repeat;
 }
 
+.icon_pdf{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/pdf.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
+
+
 #list{
     background: transparent;
     border: none;
@@ -107,12 +122,19 @@ h2{
 }
 
 .capo{
-    font-weight: bolder;
+    font-weight: bold;
     font-size: 1.5em;
     width: 20vw;
     position: absolute;
     top: 1em;
     left: 70vw;
+}
+
+@media print {
+    .capo{
+        width: 59.4mm;
+        left: 207.9mm
+    }
 }
 
 wrapper{
@@ -126,14 +148,14 @@ chord{
     bottom: 1.6ex;
 }
 verse{
-    font-weight: bolder;
+    font-weight: bold;
     position: relative;
     margin-top: 3em;
 }
 
 verse::after{
     content: attr(number);
-    font-weight: 700;
+    font-weight: bold;
     transform: translateX(-120%);
     position: absolute;
     bottom: 0;
