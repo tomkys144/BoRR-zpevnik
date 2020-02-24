@@ -7,6 +7,13 @@ body{
     font-family: 'raleway', sans-serif;
 }
 
+
+@media print {
+    body{
+        background-image: none;
+    }
+}
+
 h1{
     font-size: 5em;
     text-align: center;
@@ -142,22 +149,52 @@ wrapper{
     position: relative;
     margin-top: 4ex;
 }
+
 chord{
     font-weight: bolder;
     position: absolute;
     bottom: 1.6ex;
 }
 verse{
-    font-weight: bold;
+    font-weight: bolder;
     position: relative;
     margin-top: 3em;
 }
 
 verse::after{
     content: attr(number);
-    font-weight: bold;
+    font-weight: bolder;
     transform: translateX(-120%);
     position: absolute;
     bottom: 0;
     width: max-content;
+}
+
+@media print {
+    .wrapper{
+        display: inline-block;
+        position: relative;
+        margin-top: 4ex;
+    }
+
+    .chord{
+        font-weight: bold;
+        position: absolute;
+        bottom: 1.6ex;
+    }
+
+    .verse{
+        font-weight: bold;
+        position: relative;
+        margin-top: 3em;
+    }
+
+    .verse::after{
+        content: attr(number);
+        font-weight: bold;
+        transform: translateX(-120%);
+        position: absolute;
+        bottom: 0;
+        width: max-content;
+    }
 }

@@ -2,6 +2,7 @@
 require ('vendor/autoload.php');
 
 $files = scandir(__DIR__ . '/songs/');
+$files = array_diff($files, ['.', '..']);
 
 $stylesheet = file_get_contents('css.css');
 
@@ -34,7 +35,7 @@ $pdf->WriteHTML(
         <h1>BoRR</h1>
         <h1>zpěvník</h1>
     </div>
-    <div style="position: fixed; bottom: 0; text-align: center; width: 100%">
+    <div style="position: absolute; bottom: 0; text-align: center; width: 297mm;left: 0 ; font-size: 5mm">
         <p>zpěvník aktuální k ' . $date . '</p>
         <p>napsal Tomáš Kysela - Kyslík</p> 
         <p>&#169;2020 BoRR</p>
@@ -73,6 +74,10 @@ $pdf->WriteHTML(
 
 foreach ($files as $f) {
     $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $f));
+    $song = str_replace('<verse', '<p class="verse"', $object->body());
+    $song = str_replace('</verse>', '</p>', $song);
+    $song = str_replace('<wrapper><chord>', '<p class="wrapper"><p class="chord">', $song);
+    $song = str_replace('</chord></wrapper>', '</p></p>', $song);
     $pdf->AddPage();
     $pdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
     if ($object->matter('capo') != null) {
@@ -82,7 +87,7 @@ foreach ($files as $f) {
         '<div style="position: absolute; width: 190.08mm; left: 53.46mm;top: 0; max-height: 265px">
               <h1>' . $object->matter('title') . '</h1>
               <h2>' . $object->matter('author') . '</h2>
-              <div class="song_body"><p id="song_text">' . $object->body() . '</p></div></div>',
+              <div class="song_body"><p id="song_text">' . $song . '</p></div></div>',
         \Mpdf\HTMLParserMode::HTML_BODY
     );
 }
