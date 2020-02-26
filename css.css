@@ -86,8 +86,7 @@ h2{
 #list{
     background: transparent;
     border: none;
-    font-size: 1em;
-    width: max-content;
+    font-size: 1.5em;
 }
 
 #list:hover{
