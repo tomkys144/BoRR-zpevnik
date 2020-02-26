@@ -15,7 +15,7 @@
                     '<!DOCTYPE html>
                     <html lang="en">
                     <head>
-                        <meta charset="UTF-8">
+                        <meta charset="UTF-32">
                         <title>BoRR zpěvník - ' . $object->matter('title') . '</title>
                         <link rel="icon" href="data/borr.png">
                         <link rel="stylesheet" href="css.css">
