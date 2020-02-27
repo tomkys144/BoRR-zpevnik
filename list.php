@@ -66,7 +66,7 @@
         <a href="index.html"><button id="left_button" type="button">&lt;</button></a>
     </div>
     <div>
-        <form method="get"><input type="hidden" name="number" value="2"><button formaction="songs.php" id="right_button" type="submit">&gt;</button></form>
+        <form method="get"><input type="hidden" name="number" value="2"><button formaction="songs.php" id="right_button" type="jen velmi rychle skončím jako submit">&gt;</button></form>
     </div>
 </body>
 </html>
