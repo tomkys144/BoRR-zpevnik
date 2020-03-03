@@ -1,11 +1,11 @@
     <?php
-        require_once __DIR__.'/vendor/autoload.php';
+        require_once __DIR__. '/vendor/autoload.php';
         $files = scandir(__DIR__.'/songs/');
         if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             $song = $_REQUEST['number'];
             if ($song <= 1) {
                 header("Location: list.php");
-                exit;
+                exit();
             }
             else {
                 $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__.'/songs/' . $files[$song]));
