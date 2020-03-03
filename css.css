@@ -157,13 +157,22 @@ input.editor{
 
 textarea.editor{
     position: absolute;
-    width: 96vw;
+    width: 46vw;
     left: 50%;
-    transform: translate(-48vw);
     margin: 0;
     resize: none;
     overflow: hidden;
-    min-height: 30vh;
+    min-height: 20vh;
+}
+
+p.editor{
+    position: absolute;
+    width: 46vw;
+    left: 50%;
+    margin: 0;
+    resize: none;
+    overflow: hidden;
+    min-height: 20vh;
 }
 
 button.editor{
@@ -205,4 +214,14 @@ button.editor{
         height:0;
         visibility:hidden;
     }
+}
+
+.editor_button{
+    width: max-content;
+    min-width: 10vw;
+    height: 5vh;
+    font-size: 1em;
+    background-color: transparent;
+    border-color: darkgray;
+    border-width: 1px;
 }
