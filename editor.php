@@ -21,15 +21,16 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         $name = strtolower($name);
         $name = str_replace(str_split('\:*?<>.,!'), '', $name);
 
-        if ($capo === 0) {
-            $capo = null;
-        }
-
         $file = fopen(__DIR__ . '/songs/' . $name . '.md', 'w');
         fwrite($file, "---\n");
         fwrite($file, "title: '" . $title . "'\n");
         fwrite($file, "author: '" . $author . "'\n");
-        fwrite($file, "capo: '" . $capo . "'\n");
+        if ($capo === 0 || $capo ==='0') {
+            fwrite($file, "capo: null\n");
+        }
+        else {
+            fwrite($file, "capo: " . $capo . "\n");
+        }
         fwrite($file, "---\n");
         fwrite($file, "\n");
         fwrite($file, $body);
@@ -45,7 +46,12 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $song_contents = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $song_file));
     $song_contents_title = $song_contents->matter('title');
     $song_contents_author = $song_contents->matter('author');
-    $song_contents_capo = $song_contents->matter('capo');
+    if ($song_contents->matter('capo') == null) {
+        $song_contents_capo = 0;
+    }
+    else {
+        $song_contents_capo = $song_contents->matter('capo');
+    }
     $song_contents_body = $song_contents->body();
 }
 ?>
