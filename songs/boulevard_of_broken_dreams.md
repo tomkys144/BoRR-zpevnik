@@ -7,7 +7,7 @@ capo: 3
 <verse number="1:"></verse><wrapper><chord>Am</chord></wrapper>I walk a <wrapper><chord>C</chord></wrapper>lonely road<Br>
 <wrapper><chord>G</chord></wrapper>The only one that <wrapper><chord>D</chord></wrapper>I have ever <wrapper><chord>Am</chord></wrapper>known<br>
 Don't know <wrapper><chord>C</chord></wrapper>where it goes<br>
-But <wrapper><chord>G</chord></wrapper>it's home to me <wrapper><chord>D</chord></wrapper>and I walk <wrapper><chord>Am</chord></wrapper>alone<wrapper><chord>C&nbsp;G&nbsp;D</chord></wrapper><br>
+But <wrapper><chord>G</chord></wrapper>it's home to me <wrapper><chord>D</chord></wrapper>and I walk <wrapper><chord>Am</chord></wrapper>alone<wrapper><chord>C G D</chord></wrapper><br>
 <br>
 <verse number="2:"></verse>I walk this empty street<br>
 On the Boulevard of broken dreams<br>

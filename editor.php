@@ -55,6 +55,10 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $song_contents_body = $song_contents->body();
 }
 ?>
+<div>
+    <a href="index.html"><button class="icon_home"></button></a>
+    <a href="help.html"><button class="icon_help"></button></a>
+</div>
 <h1>Editor písniček</h1>
 <div class="editor">
     <div id="selection" class="selection">
@@ -94,7 +98,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <form method="post" id="input_form" style="width: 45vw; margin: 0">
         Název: <input class="editor" type="text" name="title" id="title" required value="<?php echo (isset($song_contents_title))?$song_contents_title:'';?>"><br>
         Autor: <input class="editor" type="text" name="author" id="author" required value="<?php echo (isset($song_contents_author))?$song_contents_author:'';?>"><br>
-        Capo: <input class="editor" type="number" name="capo" id="capo" required value="<?php echo (isset($song_contents_capo))?$song_contents_capo:'';?>"><br>
+        Capo: <input class="editor" type="number" name="capo" id="capo" min="0" required value="<?php echo (isset($song_contents_capo))?$song_contents_capo:'';?>"><br>
     </form>
     <script>
         function insertAtCursor(myField, myValue) {
@@ -143,11 +147,26 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
             document.getElementById('song').focus();
             selection.modify('move', 'forward', 'character')
         }
+        function addRepetitionStart() {
+            var text = '&#x1d106;';
+            insertAtCursor(document.getElementById('song'), text);
+        }
+        function addRepetitionEnd() {
+            var text = '&#x1d107;';
+            insertAtCursor(document.getElementById('song'), text);
+        }
+        function addFlat() {
+            var text = '&flat;';
+            insertAtCursor(document.getElementById('song'), text);
+        }
     </script>
     <div style="width: max-content; left: 2.5vw; bottom: 10px; margin: 10px; position: sticky">
         <button onclick="addVerse()" class="editor_button">Přidat sloku</button>
         <button onclick="addChord()" class="editor_button">Přidat akord</button>
         <button onclick="addBreak()" class="editor_button">Přidat konec řádku</button>
+        <button onclick="addRepetitionStart()" class="editor_button">&#x1d106;</button>
+        <button onclick="addRepetitionEnd()" class="editor_button">&#x1d107;</button>
+        <button onclick="addFlat()" class="editor_button">&flat;</button>
     </div>
     <textarea wrap="soft" oninput="onInputFnc(this)" class="editor" style="transform: translate(-47.5vw)" name="body" form="input_form" id="song" required><?php echo (isset($song_contents_body))?$song_contents_body:'';?></textarea>
     <div class="editor" style="position: absolute; width: 45vw; left: 50%; margin: 0; resize: none; overflow: hidden; height: max-content; transform: translate(2.5vw)">

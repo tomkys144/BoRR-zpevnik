@@ -267,7 +267,7 @@ button.editor{
 
 .editor_button{
     width: max-content;
-    min-width: 10vw;
+    min-width: 2em;
     height: 5vh;
     font-size: 1em;
     background-color: transparent;
