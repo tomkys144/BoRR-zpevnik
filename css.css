@@ -7,13 +7,6 @@ body{
     font-family: 'raleway', sans-serif;
 }
 
-
-@media print {
-    body{
-        background-image: none;
-    }
-}
-
 h1{
     font-size: 5em;
     text-align: center;
@@ -104,6 +97,33 @@ h2{
     background-repeat: no-repeat;
 }
 
+.icon_left{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    bottom: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/left.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
+
+.icon_right{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/right.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
 
 #list{
     background: transparent;
@@ -134,13 +154,6 @@ h2{
     position: absolute;
     top: 1em;
     left: 70vw;
-}
-
-@media print {
-    .capo{
-        width: 59.4mm;
-        left: 207.9mm
-    }
 }
 
 wrapper{
@@ -174,12 +187,13 @@ verse::after{
     border-width: 1px;
     border-color: darkgray;
     font-size: 1em;
+    border-style: solid;
 }
 
 input.editor{
     margin: 10px;
     position: sticky;
-    width: 20vw;
+    width: calc(100% - 5em);
     min-width: 10em;
     height: 2em;
     left: 5em;
@@ -187,7 +201,7 @@ input.editor{
 
 textarea.editor{
     position: absolute;
-    width: 46vw;
+    width: 45vw;
     left: 50%;
     margin: 0;
     resize: none;
@@ -195,14 +209,19 @@ textarea.editor{
     min-height: 20vh;
 }
 
+div.editor{
+    border-style: none;
+}
+
 p.editor{
     position: absolute;
-    width: 46vw;
     left: 50%;
     margin: 0;
     resize: none;
     overflow: hidden;
     min-height: 20vh;
+    width: 40vw;
+    transform: translate(5vw);
 }
 
 button.editor{
@@ -256,30 +275,28 @@ button.editor{
     border-width: 1px;
 }
 
-@media print {
-    .wrapper{
-        display: inline-block;
-        position: relative;
-        margin-top: 4ex;
-    }
+.song_selector {
+    background-color: transparent;
+    position: sticky;
+    border: none;
+    height: 2em;
+    font-size: 1em;
+    margin: 2px;
+    left: 1vw;
+}
 
-    .chord{
-        font-weight: bold;
-        position: absolute;
-        bottom: 1.6ex;
-    }
+.song_selector:focus{
+    background-color: lightgrey;
+}
 
-    .verse{
-        font-weight: bold;
-        position: relative;
-        margin-top: 3em;
-    }
-
-    .verse::after{
-        content: attr(number);
-        font-weight: bold;
-        transform: translateX(-120%);
-        position: absolute;
-        bottom: 0;
-        width: max-content;
-    }
+.selection{
+    width: 44vw;
+    height: 168px;
+    overflow: auto;
+    position: absolute;
+    right: 1vw;
+    direction: rtl;
+    border-width: 1px;
+    border-color: darkgray;
+    border-style: solid;
+}
