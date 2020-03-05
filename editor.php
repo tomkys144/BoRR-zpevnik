@@ -51,6 +51,24 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
     <button class="editor" type="submit">Dokončit</button>
 </form><br>
 <script>
+    function insertAtCursor(myField, myValue) {
+        //IE support
+        if (document.selection) {
+            myField.focus();
+            sel = document.selection.createRange();
+            sel.text = myValue;
+        }
+        //MOZILLA and others
+        else if (myField.selectionStart || myField.selectionStart == '0') {
+            var startPos = myField.selectionStart;
+            var endPos = myField.selectionEnd;
+            myField.value = myField.value.substring(0, startPos)
+                + myValue
+                + myField.value.substring(endPos, myField.value.length);
+        } else {
+            myField.value += myValue;
+        }
+    }
     function autoGrow(element) {
         element.style.height = "5px";
         element.style.height = (element.scrollHeight) + "px";
@@ -65,17 +83,17 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
     }
     function addVerse() {
         var number = prompt('Číslo sloky:', '1');
-        var text = document.getElementById('song').value;
-        document.getElementById('song').value = text + '<verse number="' + number + ':"></verse>';
+        var text = '<verse number="' + number + ':"></verse>';
+        insertAtCursor(document.getElementById('song'), text);
     }
     function addChord() {
         var chord = prompt('Akord:', 'C');
-        var text = document.getElementById('song').value;
-        document.getElementById('song').value = text + '<wrapper><chord>' + chord + '</chord></wrapper>';
+        var text = '<wrapper><chord>' + chord + '</chord></wrapper>';
+        insertAtCursor(document.getElementById('song'), text);
     }
     function addBreak() {
-        var text = document.getElementById('song').value;
-        document.getElementById('song').value = text + '<br>' + '\n';
+        var text = '<br>\n';
+        insertAtCursor(document.getElementById('song'), text);
     }
 </script>
 <div style="width: max-content; left: 2vw; bottom: 10px; margin: 10px; position: sticky">
@@ -84,7 +102,9 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
     <button onclick="addBreak()" class="editor_button">Přidat konec řádku</button>
 </div>
 <textarea wrap="soft" oninput="onInputFnc(this)" class="editor" style="transform: translate(-48vw)" name="body" form="input_form" id="song" required></textarea>
-<p onchange="autoGrow(this)" class="editor" style="transform: translate(2vw)" id="preview"></p>
+<div class="editor" style="position: absolute; width: 46vw; left: 50%; margin: 0; resize: none; overflow: hidden; height: max-content; transform: translate(2vw)">
+    <p onchange="autoGrow(this)" style="width: 40vw; transform: translate(6vw)" id="preview"></p>
+</div>
 </div>
 </body>
 </html>
