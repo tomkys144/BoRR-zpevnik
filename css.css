@@ -195,16 +195,6 @@ textarea.editor{
     min-height: 20vh;
 }
 
-p.editor{
-    position: absolute;
-    width: 46vw;
-    left: 50%;
-    margin: 0;
-    resize: none;
-    overflow: hidden;
-    min-height: 20vh;
-}
-
 button.editor{
     margin: 10px;
     left: 5em;
@@ -256,30 +246,40 @@ button.editor{
     border-width: 1px;
 }
 
-@media print {
-    .wrapper{
-        display: inline-block;
-        position: relative;
-        margin-top: 4ex;
-    }
+.icon_user-btn {
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/user.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
 
-    .chord{
-        font-weight: bold;
-        position: absolute;
-        bottom: 1.6ex;
-    }
+.icon_user {
+    position: relative;
+    display: inline-block;
+}
 
-    .verse{
-        font-weight: bold;
-        position: relative;
-        margin-top: 3em;
-    }
+.icon_user-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-widthwidth: 60px;
+    z-index: 1;
+}
 
-    .verse::after{
-        content: attr(number);
-        font-weight: bold;
-        transform: translateX(-120%);
-        position: absolute;
-        bottom: 0;
-        width: max-content;
-    }
+.icon_user-included {
+    background-color: transparent;
+    border: none;
+    font-size: 1em
+}
+
+.icon_user-included:hover {
+    text-decoration: underline;
+}
+
+.icon_user:hover .icon_user-content {display: block;}
+
+.icon_user:hover .icon_user-btn {background-color: lightgrey;}
