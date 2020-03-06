@@ -5,6 +5,15 @@
     <title>BoRR zpěvník</title>
     <link rel="icon" href="data/borr.png">
     <link rel="stylesheet" href="css.css">
+    <script>
+        var host = window.location.hostname;
+        if (host !== 'localhost') {
+            var prot = window.location.protocol;
+            if (prot === "http:") {
+                window.location.href = window.location.href.replace('http://','https://');
+            }
+        }
+    </script>
 </head>
 <body>
 <?php
@@ -59,8 +68,10 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <a href="index.html"><button class="icon_home"></button></a>
     <a href="help.html"><button class="icon_help"></button></a>
 </div>
-<h1>Editor písniček</h1>
-<div class="editor">
+<div style="position: absolute; width: 64vw; left: 18vw;top: 0">
+    <h1>Editor písniček</h1>
+</div>
+<div class="editor" style="position: relative; top: 100px">
     <div id="selection" class="selection">
         <div style="direction: ltr">
         <form id="songopen_form" method="get">

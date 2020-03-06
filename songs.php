@@ -19,6 +19,15 @@
                         <title>BoRR zpěvník - ' . $object->matter('title') . '</title>
                         <link rel="icon" href="data/borr.png">
                         <link rel="stylesheet" href="css.css">
+                        <script>
+                            var host = window.location.hostname;
+                            if (host !== \'localhost\') {
+                                var prot = window.location.protocol;
+                                if (prot === "http:") {
+                                    window.location.href = window.location.href.replace(\'http://\',\'https://\');
+                                }
+                            }
+                        </script>
                     </head>
                     <body>
                     <div style="position: absolute; top: 0">
