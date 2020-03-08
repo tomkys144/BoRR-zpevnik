@@ -1,4 +1,4 @@
-body{
+body {
     background-color: whitesmoke;
     background-image: url("data/borr.png");
     background-repeat: no-repeat;
@@ -7,20 +7,20 @@ body{
     font-family: 'raleway', sans-serif;
 }
 
-h1{
+h1 {
     font-size: 5em;
     text-align: center;
 }
 
-h2{
+h2 {
     font-size: 2em;
     text-align: center;
 }
 
-#right_button{
+#right_button {
     font-size: 2em;
     position: fixed;
-    right:0;
+    right: 0;
     top: 0;
     background: transparent;
     border: none;
@@ -29,10 +29,10 @@ h2{
     width: 6vw;
 }
 
-#left_button{
+#left_button {
     font-size: 2em;
     position: fixed;
-    left:0;
+    left: 0;
     top: 6vw;
     background: transparent;
     border: none;
@@ -41,7 +41,7 @@ h2{
     width: 6vw;
 }
 
-.icon_home{
+.icon_home {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -55,7 +55,7 @@ h2{
     background-repeat: no-repeat;
 }
 
-.icon_help{
+.icon_help {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -69,7 +69,7 @@ h2{
     background-repeat: no-repeat;
 }
 
-.icon_list{
+.icon_list {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -83,7 +83,7 @@ h2{
     background-repeat: no-repeat;
 }
 
-.icon_music{
+.icon_music {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -97,7 +97,7 @@ h2{
     background-repeat: no-repeat;
 }
 
-.icon_pdf{
+.icon_pdf {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -111,7 +111,7 @@ h2{
     background-repeat: no-repeat;
 }
 
-.icon_left{
+.icon_left {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -125,7 +125,7 @@ h2{
     background-repeat: no-repeat;
 }
 
-.icon_right{
+.icon_right {
     position: relative;
     display: inline-block;
     width: 60px;
@@ -139,29 +139,29 @@ h2{
     background-repeat: no-repeat;
 }
 
-#list{
+#list {
     background: transparent;
     border: none;
     font-size: 1.5em;
 }
 
-#list:hover{
+#list:hover {
     text-decoration: underline;
 }
 
-#song_text{
+#song_text {
     font-size: 1.5em;
     text-align: left;
 }
 
-.song_body{
+.song_body {
     width: max-content;
     position: absolute;
     left: 50%;
     transform: translate(-50%, 0);
 }
 
-.capo{
+.capo {
     font-weight: bold;
     font-size: 1.5em;
     width: 20vw;
@@ -170,24 +170,25 @@ h2{
     left: 70vw;
 }
 
-wrapper{
+wrapper {
     display: inline-block;
     position: relative;
     margin-top: 4ex;
 }
 
-chord{
+chord {
     font-weight: bolder;
     position: absolute;
     bottom: 1.6ex;
 }
-verse{
+
+verse {
     font-weight: bolder;
     position: relative;
     margin-top: 3em;
 }
 
-verse::after{
+verse::after {
     content: attr(number);
     font-weight: bolder;
     transform: translateX(-120%);
@@ -196,7 +197,7 @@ verse::after{
     width: max-content;
 }
 
-.editor{
+.editor {
     background: transparent;
     border-width: 1px;
     border-color: darkgray;
@@ -204,7 +205,7 @@ verse::after{
     border-style: solid;
 }
 
-input.editor{
+input.editor {
     margin: 10px;
     position: sticky;
     width: calc(100% - 5em);
@@ -213,7 +214,7 @@ input.editor{
     left: 5em;
 }
 
-textarea.editor{
+textarea.editor {
     position: absolute;
     width: 45vw;
     left: 50%;
@@ -223,11 +224,11 @@ textarea.editor{
     min-height: 20vh;
 }
 
-div.editor{
+div.editor {
     border-style: none;
 }
 
-p.editor{
+p.editor {
     position: absolute;
     left: 50%;
     margin: 0;
@@ -238,7 +239,7 @@ p.editor{
     transform: translate(5vw);
 }
 
-button.editor{
+button.editor {
     margin: 10px;
     left: 5em;
     position: sticky;
@@ -264,22 +265,24 @@ button.editor{
     -webkit-animation-fill-mode: forwards;
     animation-fill-mode: forwards;
 }
+
 @keyframes cssAnimation {
     to {
-        width:0;
-        height:0;
-        overflow:hidden;
-    }
-}
-@-webkit-keyframes cssAnimation {
-    to {
-        width:0;
-        height:0;
-        visibility:hidden;
+        width: 0;
+        height: 0;
+        overflow: hidden;
     }
 }
 
-.editor_button{
+@-webkit-keyframes cssAnimation {
+    to {
+        width: 0;
+        height: 0;
+        visibility: hidden;
+    }
+}
+
+.editor_button {
     width: max-content;
     min-width: 2em;
     height: 5vh;
@@ -299,11 +302,11 @@ button.editor{
     left: 1vw;
 }
 
-.song_selector:focus{
+.song_selector:focus {
     background-color: lightgrey;
 }
 
-.selection{
+.selection {
     width: 44vw;
     height: 168px;
     overflow: auto;

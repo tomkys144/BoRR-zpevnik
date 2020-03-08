@@ -6,9 +6,9 @@
     <link rel="icon" href="data/borr.png">
     <link rel="stylesheet" href="css.css">
     <script>
-        var host = window.location.hostname;
+        let host = window.location.hostname;
         if (host !== 'localhost') {
-            var prot = window.location.protocol;
+            let prot = window.location.protocol;
             if (prot === "http:") {
                 window.location.href = window.location.href.replace('http://','https://');
             }
@@ -115,12 +115,12 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
         function insertAtCursor(myField, myValue) {
             if (document.selection) {
                 myField.focus();
-                sel = document.selection.createRange();
+                let sel = document.selection.createRange();
                 sel.text = myValue;
             }
             else if (myField.selectionStart || myField.selectionStart == '0') {
-                var startPos = myField.selectionStart;
-                var endPos = myField.selectionEnd;
+                let startPos = myField.selectionStart;
+                let endPos = myField.selectionEnd;
                 myField.value = myField.value.substring(0, startPos)
                     + myValue
                     + myField.value.substring(endPos, myField.value.length);
@@ -134,7 +134,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
             element.style.height = (element.scrollHeight) + "px";
         }
         function previewMaker() {
-            var text = document.getElementById('song').value;
+            let text = document.getElementById('song').value;
             document.getElementById('preview').innerHTML = text;
         }
         function onInputFnc(element) {
@@ -142,34 +142,48 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
             previewMaker();
         }
         function addVerse() {
-            var number = prompt('Číslo sloky:', '1');
-            var text = '<verse number="' + number + ':"></verse>';
+            let number = prompt('Číslo sloky:', '1');
+            number.replace(/ /g, '&nbsp;');
+            let text = '<verse number="' + number + ':"></verse>';
             insertAtCursor(document.getElementById('song'), text);
         }
         function addChord() {
-            var chord = prompt('Akord:', 'C');
-            var text = '<wrapper><chord>' + chord + '</chord></wrapper>';
+            let chord = prompt('Akord:', 'C');
+            chord.replace(/ /g, '&nbsp;')
+            let text = '<wrapper><chord>' + chord + '</chord></wrapper>';
             insertAtCursor(document.getElementById('song'), text);
         }
         function addBreak() {
-            var text = '<br>\n';
+            let text = '<br>\n';
             insertAtCursor(document.getElementById('song'), text);
             let selection = document.getSelection();
             document.getElementById('song').focus();
             selection.modify('move', 'forward', 'character')
         }
         function addRepetitionStart() {
-            var text = '&#x1d106;';
+            let text = '&#x1d106;';
             insertAtCursor(document.getElementById('song'), text);
         }
         function addRepetitionEnd() {
-            var text = '&#x1d107;';
+            let text = '&#x1d107;';
             insertAtCursor(document.getElementById('song'), text);
         }
         function addFlat() {
-            var text = '&flat;';
+            let text = '&flat;';
             insertAtCursor(document.getElementById('song'), text);
         }
+        document.addEventListener("DOMContentLoaded", () => {
+           const buttons = document.getElementsByClassName("editor_button");
+           const song = document.getElementById("song");
+
+            song.dispatchEvent(new Event("input")); //Render the initial state
+
+           for (let i = 0; i < buttons.length; i++) {
+               buttons[i].addEventListener("click", () => {
+                   song.dispatchEvent(new Event("input")); //Re-render on edits using buttons
+               });
+           }
+        });
     </script>
     <div style="width: max-content; left: 2.5vw; bottom: 10px; margin: 10px; position: sticky">
         <button onclick="addVerse()" class="editor_button">Přidat sloku</button>
@@ -181,7 +195,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     </div>
     <textarea wrap="soft" oninput="onInputFnc(this)" class="editor" style="transform: translate(-47.5vw)" name="body" form="input_form" id="song" required><?php echo (isset($song_contents_body))?$song_contents_body:'';?></textarea>
     <div class="editor" style="position: absolute; width: 45vw; left: 50%; margin: 0; resize: none; overflow: hidden; height: max-content; transform: translate(2.5vw)">
-        <p onchange="autoGrow(this)" style="width: 40vw; transform: translate(5vw)" id="preview"></p>
+        <p style="width: 40vw; transform: translate(5vw)" id="preview"></p>
     </div>
 </div>
 </body>

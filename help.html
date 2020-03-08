@@ -6,18 +6,20 @@
     <link rel="icon" href="data/borr.png">
     <link rel="stylesheet" href="css.css">
     <script>
-        var host = window.location.hostname;
+        let host = window.location.hostname;
         if (host !== 'localhost') {
-            var prot = window.location.protocol;
+            let prot = window.location.protocol;
             if (prot === "http:") {
-                window.location.href = window.location.href.replace('http://','https://');
+                window.location.href = window.location.href.replace('http://', 'https://');
             }
         }
     </script>
 </head>
 <body>
 <div>
-    <a href="index.html"><button class="icon_home"></button></a>
+    <a href="index.html">
+        <button class="icon_home"></button>
+    </a>
 </div>
 <div style="position: absolute; width: 64vw; left: 18vw;top: 0">
     <h1>Nápověda</h1>
@@ -27,7 +29,8 @@
         Napsání nového zápisu písničky
     </h2>
     <p>
-        Písničky jsou do systému vkládany soubory ve formátu .md. Takový soubor je možné psát v textovém editoru, či specializovaném programu pro psaní v Markdownu.
+        Písničky jsou do systému vkládany soubory ve formátu .md. Takový soubor je možné psát v textovém editoru, či
+        specializovaném programu pro psaní v Markdownu.
         Je třeba vložit na začátek souboru základní informace o písničce: <br>
     </p>
     <p style="background-color: lightgray">
@@ -45,11 +48,15 @@
     <p style="background-color: lightgray">
         <i>
             &lt;wrapper&gt;&lt;chord&gt;A&lt;/chord&gt;&lt;/wrapper&gt;text<br>
-            <wrapper><chord>A</chord></wrapper>text
+            <wrapper>
+                <chord>A</chord>
+            </wrapper>
+            text
             <br>
             <br>
             &lt;verse number="R:"&gt;Sloka<br>
-            <verse number="R:"></verse>Sloka<br>
+            <verse number="R:"></verse>
+            Sloka<br>
             <br>
             konec&lt;br&gt;řádku<br>
             konec<br>
@@ -61,7 +68,9 @@
         Vložení do systému
     </h2>
     <p>
-        Vkládání se provádí pomocí FTP. Pokud budete chtít přihlašovací údaje, napiště na <a href="mailto:tomkys@skaut.cz">tomkys@skaut.cz</a>. Pokud chcete, je možné mi poslat soubor a já ho vložím sám.
+        Vkládání se provádí pomocí FTP. Pokud budete chtít přihlašovací údaje, napiště na <a
+            href="mailto:tomkys@skaut.cz">tomkys@skaut.cz</a>. Pokud chcete, je možné mi poslat soubor a já ho vložím
+        sám.
     </p>
 </div>
 </body>

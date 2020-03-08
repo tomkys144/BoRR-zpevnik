@@ -6,27 +6,44 @@
     <link rel="icon" href="data/borr.png">
     <link rel="stylesheet" href="css.css">
     <script>
-        var host = window.location.hostname;
+        let host = window.location.hostname;
         if (host !== 'localhost') {
-            var prot = window.location.protocol;
+            let prot = window.location.protocol;
             if (prot === "http:") {
-                window.location.href = window.location.href.replace('http://','https://');
+                window.location.href = window.location.href.replace('http://', 'https://');
             }
         }
     </script>
 </head>
 <body>
-    <div>
-        <h1>BoRR</h1>
-        <h1>zpěvník</h1>
-    </div>
-    <div>
-        <a href="list.php"><button id="right_button" type="button">&gt;</button></a>
-    </div>
-    <div style="position: fixed; bottom: 0; text-align: center; width: 100%">
-        <!--- Tento zpěvník byl psán s myšlenkou na Valču a nyní je jí i věnován. --->
-        <a href="https://github.com/tomkys144/BoRR-zpevnik"><button style="background-color: transparent; border: none; font-size: 1em">napsal Tomáš Kysela - Kyslík</button></a><!--- A velkou pomoc poskytl Vojta Káně --->
-        <p style="font-size: 1em">&#169;2020 BoRR</p>
-    </div>
+<script>
+    document.addEventListener('keydown', (e) => {
+        switch (e.key) {
+            case 'ArrowRight':
+                document.getElementById('right').click();
+                break;
+            default:
+                return;
+        }
+        e.preventDefault();
+    })
+</script>
+<div>
+    <h1>BoRR</h1>
+    <h1>zpěvník</h1>
+</div>
+<div>
+    <a href="list.php" id="right">
+        <button id="right_button" type="button">&gt;</button>
+    </a>
+</div>
+<div style="position: fixed; bottom: 0; text-align: center; width: 100%">
+    <!--- Tento zpěvník byl psán s myšlenkou na Valču a nyní je jí i věnován. --->
+    <a href="https://github.com/tomkys144/BoRR-zpevnik">
+        <button style="background-color: transparent; border: none; font-size: 1em">napsal Tomáš Kysela - Kyslík
+        </button>
+    </a><!--- A velkou pomoc poskytl Vojta Káně --->
+    <p style="font-size: 1em">&#169;2020 BoRR</p>
+</div>
 </body>
 </html>
