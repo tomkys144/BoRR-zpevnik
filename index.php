@@ -1,3 +1,16 @@
+<?php
+session_start();
+require __DIR__ . '/skautis_manager.php';
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $_SESSION['skautis_response'] = $_POST;
+    login_finish();
+    if (!$_SESSION['backlink']) {
+        $_SESSION['backlink'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+    }
+    header('Location: ' . $_SESSION['backlink']);
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

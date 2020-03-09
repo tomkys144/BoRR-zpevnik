@@ -36,14 +36,14 @@ $files = scandir(__DIR__ . '/songs/');
     })
 </script>
 <div>
-    <a href="index.html"><button class="icon_home"></button></a>
+    <a href="index.php"><button class="icon_home"></button></a>
     <a href="help.html"><button class="icon_help"></button></a>
     <a href="https://open.spotify.com/playlist/5hdTuzLBp0KlodbN8ghRng?si=QAGn797uSoOU2vMZko5qYQ"><button class="icon_music"></button></a>
     <div class="icon_user">
         <button class="icon_user-btn"></button>
         <div class="icon_user-content">
             <form method="get" action="skautis_manager.php">
-                <input type="hidden" name="logout">
+                <input type="hidden" name="logout" value="<?php echo('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ?>">
                 <input class="icon_user-included" type="submit" value="logout">
             </form>
         </div>
@@ -99,7 +99,7 @@ $files = scandir(__DIR__ . '/songs/');
     ?>
 </div>
 <div>
-    <a href="index.html" id="left">
+    <a href="index.php" id="left">
         <button id="left_button" type="button">&lt;</button>
     </a>
 </div>

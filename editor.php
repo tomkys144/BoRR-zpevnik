@@ -19,12 +19,13 @@ session_start();
     </script>
 </head>
 <body>
-<?
+<?php
 $_SESSION['backlink'] = 'https://zpevnik-borr.skauting.cz/editor.php';
 require __DIR__ . '/skautis_manager.php';
 $skautisUser = $skautis->getUser();
 if (!$skautisUser->isLoggedIn(true)) {
     login();
+    exit();
 }
 $userDetail      = $skautis->UserManagement->UserDetail();
 $userMemberships = $skautis->OrganizationUnit->MembershipAllPerson( [
@@ -45,7 +46,7 @@ if ($isMember != true) {
          </div>'
     );
     sleep(5);
-    header('Location: index.html');
+    header('Location: index.php');
     exit();
 }
 
@@ -97,13 +98,13 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
 }
 ?>
 <div>
-    <a href="index.html"><button class="icon_home"></button></a>
+    <a href="index.php"><button class="icon_home"></button></a>
     <a href="help.html"><button class="icon_help"></button></a>
     <div class="icon_user">
         <button class="icon_user-btn"></button>
         <div class="icon_user-content">
             <form method="get" action="skautis_manager.php">
-                <input type="hidden" name="logout">
+                <input type="hidden" name="logout" value="<?php echo('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ?>">
                 <input class="icon_user-included" type="submit" value="logout">
             </form>
         </div>

@@ -46,14 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     })
 </script>
 <div style="position: absolute; top: 0">
-    <a href="index.html"><button class="icon_home"></button></a>
+    <a href="index.php"><button class="icon_home"></button></a>
     <a href="list.php"><button class="icon_list"></button></a>
     <a href="help.html"><button class="icon_help"></button></a>
     <div class="icon_user">
         <button class="icon_user-btn"></button>
         <div class="icon_user-content">
             <form method="get" action="skautis_manager.php">
-                <input type="hidden" name="logout">
+                <input type="hidden" name="logout" value="<?php echo('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ?>">
                 <input class="icon_user-included" type="submit" value="logout">
             </form>
         </div>

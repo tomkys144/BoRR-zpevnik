@@ -2,14 +2,14 @@
 session_start();
 require __DIR__. '/vendor/autoload.php';
 
-$applicationID = "mojeID";
+$applicationID = "6116cad6-ddbc-4380-807a-d9525cc35b95";
 $isTestMode = false;
 $skautis = \Skautis\Skautis::getInstance($applicationID, $isTestMode);
 
 function login()
 {
     global $skautis;
-    $backLink = 'https://zpevnik-borr.skauting.cz/skautis_manager.php';
+    $backLink = "https://zpevnik-borr.skauting.cz/index.php";
     $loginUrl = $skautis->getLoginUrl($backLink);
     header('Location: ' . $loginUrl);
     exit();
@@ -22,13 +22,13 @@ function logout() {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+function login_finish()
+{
     global $skautis;
-    $skautis->setLoginData($_REQUEST);
-    header('Location: ' . $_SESSION['backlink']);
-    exit();
+    $skautis->setLoginData($_SESSION['skautis_response']);
 }
 
-elseif (isset($_GET['logout'])) {
+if (isset($_GET['logout'])) {
+    $_SESSION['backlink'] = $_REQUEST['logout'];
     logout();
 }
