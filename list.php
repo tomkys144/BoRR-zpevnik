@@ -39,6 +39,15 @@ $files = scandir(__DIR__ . '/songs/');
     <a href="index.html"><button class="icon_home"></button></a>
     <a href="help.html"><button class="icon_help"></button></a>
     <a href="https://open.spotify.com/playlist/5hdTuzLBp0KlodbN8ghRng?si=QAGn797uSoOU2vMZko5qYQ"><button class="icon_music"></button></a>
+    <div class="icon_user">
+        <button class="icon_user-btn"></button>
+        <div class="icon_user-content">
+            <form method="get" action="skautis_manager.php">
+                <input type="hidden" name="logout">
+                <input class="icon_user-included" type="submit" value="logout">
+            </form>
+        </div>
+    </div>
 </div>
 <div style="position: absolute; width: 64vw; left: 18vw;top: 0">
     <h1>

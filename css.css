@@ -245,7 +245,7 @@ p.editor {
     transform: translate(5vw);
 }
 
-button.editor {
+button.editor{
     margin: 10px;
     left: 5em;
     position: sticky;
@@ -298,6 +298,16 @@ button.editor {
     border-width: 1px;
 }
 
+.icon_user-btn {
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/user.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
 .song_selector {
     background-color: transparent;
     position: sticky;
@@ -323,3 +333,30 @@ button.editor {
     border-color: darkgray;
     border-style: solid;
 }
+
+.icon_user {
+    position: relative;
+    display: inline-block;
+}
+
+.icon_user-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-widthwidth: 60px;
+    z-index: 1;
+}
+
+.icon_user-included {
+    background-color: transparent;
+    border: none;
+    font-size: 1em
+}
+
+.icon_user-included:hover {
+    text-decoration: underline;
+}
+
+.icon_user:hover .icon_user-content {display: block;}
+
+.icon_user:hover .icon_user-btn {background-color: lightgrey;}

@@ -49,6 +49,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <a href="index.html"><button class="icon_home"></button></a>
     <a href="list.php"><button class="icon_list"></button></a>
     <a href="help.html"><button class="icon_help"></button></a>
+    <div class="icon_user">
+        <button class="icon_user-btn"></button>
+        <div class="icon_user-content">
+            <form method="get" action="skautis_manager.php">
+                <input type="hidden" name="logout">
+                <input class="icon_user-included" type="submit" value="logout">
+            </form>
+        </div>
+    </div>
 </div>
 <div style="position: absolute; width: 64vw; left: 18vw;top: 0; max-height: 265px">
     <h1><?php echo($object->matter('title')) ?></h1>
