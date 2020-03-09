@@ -36,15 +36,9 @@ $files = scandir(__DIR__ . '/songs/');
     })
 </script>
 <div>
-    <a href="index.html">
-        <button class="icon_home"></button>
-    </a>
-    <a href="help.html">
-        <button class="icon_help"></button>
-    </a>
-    <a href="https://open.spotify.com/playlist/5hdTuzLBp0KlodbN8ghRng?si=QAGn797uSoOU2vMZko5qYQ">
-        <button class="icon_music"></button>
-    </a>
+    <a href="index.html"><button class="icon_home"></button></a>
+    <a href="help.html"><button class="icon_help"></button></a>
+    <a href="https://open.spotify.com/playlist/5hdTuzLBp0KlodbN8ghRng?si=QAGn797uSoOU2vMZko5qYQ"><button class="icon_music"></button></a>
 </div>
 <div style="position: absolute; width: 64vw; left: 18vw;top: 0">
     <h1>

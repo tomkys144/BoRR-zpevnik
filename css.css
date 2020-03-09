@@ -221,11 +221,17 @@ textarea.editor {
     margin: 0;
     resize: none;
     overflow: hidden;
-    min-height: 20vh;
+    min-height: 30vh;
 }
 
 div.editor {
     border-style: none;
+}
+
+#preview_div {
+    border-width: 1px;
+    border-color: darkgray;
+    border-style: solid;
 }
 
 p.editor {

@@ -111,80 +111,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
         Autor: <input class="editor" type="text" name="author" id="author" required value="<?php echo (isset($song_contents_author))?$song_contents_author:'';?>"><br>
         Capo: <input class="editor" type="number" name="capo" id="capo" min="0" required value="<?php echo (isset($song_contents_capo))?$song_contents_capo:'';?>"><br>
     </form>
-    <script>
-        function insertAtCursor(myField, myValue) {
-            if (document.selection) {
-                myField.focus();
-                let sel = document.selection.createRange();
-                sel.text = myValue;
-            }
-            else if (myField.selectionStart || myField.selectionStart == '0') {
-                let startPos = myField.selectionStart;
-                let endPos = myField.selectionEnd;
-                myField.value = myField.value.substring(0, startPos)
-                    + myValue
-                    + myField.value.substring(endPos, myField.value.length);
-            }
-            else {
-                myField.value += myValue;
-            }
-        }
-        function autoGrow(element) {
-            element.style.height = "5px";
-            element.style.height = (element.scrollHeight) + "px";
-        }
-        function previewMaker() {
-            let text = document.getElementById('song').value;
-            document.getElementById('preview').innerHTML = text;
-        }
-        function onInputFnc(element) {
-            autoGrow(element);
-            previewMaker();
-        }
-        function addVerse() {
-            let number = prompt('Číslo sloky:', '1');
-            number.replace(/ /g, '&nbsp;');
-            let text = '<verse number="' + number + ':"></verse>';
-            insertAtCursor(document.getElementById('song'), text);
-        }
-        function addChord() {
-            let chord = prompt('Akord:', 'C');
-            chord.replace(/ /g, '&nbsp;')
-            let text = '<wrapper><chord>' + chord + '</chord></wrapper>';
-            insertAtCursor(document.getElementById('song'), text);
-        }
-        function addBreak() {
-            let text = '<br>\n';
-            insertAtCursor(document.getElementById('song'), text);
-            let selection = document.getSelection();
-            document.getElementById('song').focus();
-            selection.modify('move', 'forward', 'character')
-        }
-        function addRepetitionStart() {
-            let text = '&#x1d106;';
-            insertAtCursor(document.getElementById('song'), text);
-        }
-        function addRepetitionEnd() {
-            let text = '&#x1d107;';
-            insertAtCursor(document.getElementById('song'), text);
-        }
-        function addFlat() {
-            let text = '&flat;';
-            insertAtCursor(document.getElementById('song'), text);
-        }
-        document.addEventListener("DOMContentLoaded", () => {
-           const buttons = document.getElementsByClassName("editor_button");
-           const song = document.getElementById("song");
-
-            song.dispatchEvent(new Event("input")); //Render the initial state
-
-           for (let i = 0; i < buttons.length; i++) {
-               buttons[i].addEventListener("click", () => {
-                   song.dispatchEvent(new Event("input")); //Re-render on edits using buttons
-               });
-           }
-        });
-    </script>
+    <script src="data/libs/jquery-3.4.1.min.js"></script>
     <div style="width: max-content; left: 2.5vw; bottom: 10px; margin: 10px; position: sticky">
         <button onclick="addVerse()" class="editor_button">Přidat sloku</button>
         <button onclick="addChord()" class="editor_button">Přidat akord</button>
@@ -194,8 +121,122 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
         <button onclick="addFlat()" class="editor_button">&flat;</button>
     </div>
     <textarea wrap="soft" oninput="onInputFnc(this)" class="editor" style="transform: translate(-47.5vw)" name="body" form="input_form" id="song" required><?php echo (isset($song_contents_body))?$song_contents_body:'';?></textarea>
-    <div class="editor" style="position: absolute; width: 45vw; left: 50%; margin: 0; resize: none; overflow: hidden; height: max-content; transform: translate(2.5vw)">
-        <p style="width: 40vw; transform: translate(5vw)" id="preview"></p>
+    <div id="preview_div" class="editor" style="position: absolute; min-height: 30vh; width: 45vw; left: 50%; margin: 0; resize: none; overflow: hidden; height: max-content; transform: translate(2.5vw)">
+        <p oninput="onInputFnc(this)" contenteditable="true" style="margin: 0; min-height: 30vh;width: 40vw; transform: translate(5vw)" id="preview"></p>
+        <script>
+            document.getElementById('preview').addEventListener('keydown', (e) => {
+                switch (e.key) {
+                    case 'Enter':
+                        document.execCommand('insertHTML', false, '<br><br>');
+                        break;
+                    default:
+                        return;
+                }
+                e.preventDefault()
+            });
+            window.currFocus = document;
+            $(window).on( 'focusin', function () {
+                window.prevFocus = window.currFocus;
+                window.currFocus = document.activeElement;
+            });
+            function insertAtCursor(myValue) {
+                let myField = window.prevFocus;
+                if (myField.id !== 'song' && myField.id !== 'preview') {
+                    myField = document.getElementById('song')
+                }
+                if (myField.tagName === 'TEXTAREA') {
+                    if (document.selection) {
+                        myField.focus();
+                        let sel = document.selection.createRange();
+                        sel.text = myValue;
+                    } else if (myField.selectionStart || myField.selectionStart == '0') {
+                        let startPos = myField.selectionStart;
+                        let endPos = myField.selectionEnd;
+                        myField.value = myField.value.substring(0, startPos)
+                            + myValue
+                            + myField.value.substring(endPos, myField.value.length);
+                    } else {
+                        myField.value += myValue;
+                    }
+                }
+                else if (myField.tagName === 'DIV') {
+                    if (document.selection) {
+                        myField.focus();
+                        let sel = document.selection.createRange();
+                        sel.text = myValue;
+                    } else if (myField.selectionStart || myField.selectionStart == '0') {
+                        let startPos = myField.selectionStart;
+                        let endPos = myField.selectionEnd;
+                        myField.innerHTML = myField.innerHTML.substring(0, startPos)
+                            + myValue
+                            + myField.innerHTML.substring(endPos, myField.innerHTML.length);
+                    } else {
+                        myField.innerHTML += myValue;
+                    }
+                }
+            }
+            function autoGrow(element) {
+                element.style.height = "5px";
+                element.style.height = (element.scrollHeight) + "px";
+            }
+            function previewHandler(element) {
+                if (element.id === 'song') {
+                    document.getElementById('preview').innerHTML = document.getElementById('song').value;
+                }
+
+                else if (element.id === 'preview') {
+                    let text = document.getElementById('preview').innerHTML;
+                    document.getElementById('song').value = text;
+                }
+            }
+            function onInputFnc(element) {
+                autoGrow(element);
+                previewHandler(element);
+            }
+            function addVerse() {
+                let number = prompt('Číslo sloky:', '1');
+                number = number.replace(/ /g, '&nbsp;');
+                let text = '<verse number="' + number + ':"></verse>';
+                insertAtCursor(text);
+            }
+            function addChord() {
+                let chord = prompt('Akord:', 'C');
+                chord = chord.replace(/ /g, '&nbsp;')
+                let text = '<wrapper><chord>' + chord + '</chord></wrapper>';
+                insertAtCursor(text);
+            }
+            function addBreak() {
+                let text = '<br>\n';
+                insertAtCursor(text);
+                let selection = document.getSelection();
+                document.getElementById('song').focus();
+                selection.modify('move', 'forward', 'character')
+            }
+            function addRepetitionStart() {
+                let text = '&#x1d106;';
+                insertAtCursor(text);
+            }
+            function addRepetitionEnd() {
+                let text = '&#x1d107;';
+                insertAtCursor(text);
+            }
+            function addFlat() {
+                let text = '&flat;';
+                insertAtCursor(text);
+            }
+            document.addEventListener("DOMContentLoaded", () => {
+                const buttons = document.getElementsByClassName("editor_button");
+                const song = document.getElementById("song");
+
+                song.dispatchEvent(new Event("input")); //Render the initial state
+
+                for (let i = 0; i < buttons.length; i++) {
+                    buttons[i].addEventListener("click", () => {
+                        song.dispatchEvent(new Event("input")); //Re-render on edits using buttons
+                    });
+                }
+            });
+        </script>
     </div>
 </div>
 </body>
