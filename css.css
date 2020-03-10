@@ -337,6 +337,7 @@ button.editor{
 .icon_user {
     position: relative;
     display: inline-block;
+    width: 60px;
 }
 
 .icon_user-content {
@@ -345,6 +346,7 @@ button.editor{
     background-color: transparent;
     min-widthwidth: 60px;
     z-index: 1;
+    width: max-content;
 }
 
 .icon_user-included {
@@ -360,3 +362,31 @@ button.editor{
 .icon_user:hover .icon_user-content {display: block;}
 
 .icon_user:hover .icon_user-btn {background-color: lightgrey;}
+
+.icon_fav {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/fav.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
+
+.icon_fav_not {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/fav_not.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}

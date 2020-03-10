@@ -22,32 +22,34 @@ session_start();
 <?php
 $_SESSION['backlink'] = 'https://zpevnik-borr.skauting.cz/editor.php';
 require __DIR__ . '/skautis_manager.php';
-$skautisUser = $skautis->getUser();
-if (!$skautisUser->isLoggedIn(true)) {
-    login();
-    exit();
-}
-$userDetail      = $skautis->UserManagement->UserDetail();
-$userMemberships = $skautis->OrganizationUnit->MembershipAllPerson( [
-   'ID_Person'   => $userDetail->ID_Person,
-   'ShowHistory' => false,
-   'isValid'     => true
-] );
-foreach ($userMemberships as $membership) {
-    if ($membership['RegistrationNumber' === '219.09.006']) {
-        $isMember = true;
-        continue;
+if ($_SERVER['HTTP_HOST'] !== 'localhost:8080'){
+    $skautisUser = $skautis->getUser();
+    if (!$skautisUser->isLoggedIn(true)) {
+        login();
+        exit();
     }
-}
-if ($isMember != true) {
-    echo (
+    $userDetail = $skautis->UserManagement->UserDetail();
+    $userMemberships = $skautis->OrganizationUnit->MembershipAllPerson([
+        'ID_Person' => $userDetail->ID_Person,
+        'ShowHistory' => false,
+        'isValid' => true
+    ]);
+    foreach ($userMemberships as $membership) {
+        if ($membership['RegistrationNumber' === '219.09.006']) {
+            $isMember = true;
+            continue;
+        }
+    }
+    if ($isMember != true) {
+        echo(
         '<div style="width: 100vw; height: 100vh; background-color: red; text-align: center; font-size: 2em; font-weight: bold; color: white">
         <p style="position: center">Uživatel nemá práva</p>
          </div>'
-    );
-    sleep(5);
-    header('Location: index.php');
-    exit();
+        );
+        sleep(5);
+        header('Location: index.php');
+        exit();
+    }
 }
 
 require __DIR__ . '/vendor/autoload.php';
@@ -103,10 +105,24 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <div class="icon_user">
         <button class="icon_user-btn"></button>
         <div class="icon_user-content">
-            <form method="get" action="skautis_manager.php">
-                <input type="hidden" name="logout" value="<?php echo('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ?>">
-                <input class="icon_user-included" type="submit" value="logout">
-            </form>
+            <?php
+            $skautisUser = $skautis->getUser();
+            if ($skautisUser->isLoggedIn(true)) {
+                echo (
+                    '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
+                    <form method="get" action="skautis_manager.php"><br>
+                    <input type="hidden" name="logout" value="http://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
+                    <input class="icon_user-included" type="submit" value="Odhlásit se">
+                    </form>'
+                );
+            }
+            else {
+                $_SESSION['backlink'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                echo (
+                    '<a href="' . $skautis->getLoginUrl("https://zpevnik-borr.skauting.cz/index.php") . '"><button class="icon_user-included" type="button">Přihlásit se</button></a>'
+                );
+            }
+            ?>
         </div>
     </div>
 </div>

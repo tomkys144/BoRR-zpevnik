@@ -1,5 +1,7 @@
 <?php
-require_once __DIR__ . '/vendor/autoload.php';
+session_start();
+require __DIR__ . '/vendor/autoload.php';
+require __DIR__ . '/skautis_manager.php';
 $files = scandir(__DIR__ . '/songs/');
 ?>
 <!DOCTYPE html>
@@ -42,10 +44,25 @@ $files = scandir(__DIR__ . '/songs/');
     <div class="icon_user">
         <button class="icon_user-btn"></button>
         <div class="icon_user-content">
-            <form method="get" action="skautis_manager.php">
-                <input type="hidden" name="logout" value="<?php echo('http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']) ?>">
-                <input class="icon_user-included" type="submit" value="logout">
-            </form>
+            <?php
+            $skautisUser = $skautis->getUser();
+            if ($skautisUser->isLoggedIn(true)) {
+                echo (
+                    '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
+                    <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>
+                    <form method="get" action="skautis_manager.php">
+                    <input type="hidden" name="logout" value="http://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
+                    <input class="icon_user-included" type="submit" value="Odhlásit se">
+                    </form>'
+                );
+            }
+            else {
+                $_SESSION['backlink'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                echo (
+                        '<a href="' . $skautis->getLoginUrl("https://zpevnik-borr.skauting.cz/index.php") . '"><button class="icon_user-included" type="button">Přihlásit se</button></a>'
+                );
+            }
+            ?>
         </div>
     </div>
 </div>
