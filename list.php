@@ -51,13 +51,13 @@ $files = scandir(__DIR__ . '/songs/');
                     '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
                     <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>
                     <form method="get" action="skautis_manager.php">
-                    <input type="hidden" name="logout" value="http://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
+                    <input type="hidden" name="logout" value="https://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
                     <input class="icon_user-included" type="submit" value="Odhlásit se">
                     </form>'
                 );
             }
             else {
-                $_SESSION['backlink'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                $_SESSION['backlink'] = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                 echo (
                         '<a href="' . $skautis->getLoginUrl("https://zpevnik-borr.skauting.cz/index.php") . '"><button class="icon_user-included" type="button">Přihlásit se</button></a>'
                 );

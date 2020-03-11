@@ -60,13 +60,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
                     <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>
                     <form method="get" action="skautis_manager.php">
-                    <input type="hidden" name="logout" value="http://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
+                    <input type="hidden" name="logout" value="https://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
                     <input class="icon_user-included" type="submit" value="Odhlásit se">
                     </form>'
                 );
             }
             else {
-                $_SESSION['backlink'] = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                $_SESSION['backlink'] = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
                 echo (
                     '<a href="' . $skautis->getLoginUrl("https://zpevnik-borr.skauting.cz/index.php") . '"><button class="icon_user-included" type="button">Přihlásit se</button></a>'
                 );
@@ -80,8 +80,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         $data = $skautis->usr->UserDetail();
         $data = json_decode(json_encode($data), true);
         $person = $data['ID_Person'];
-        $favSongs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'));
-        if (!in_array($song, $favSongs)) {
+        $favSongs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
+
+        if (!in_array($files[$song], array_keys($favSongs))) {
+            echo(
+                '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
+                        <input type="hidden" name="number" value="' . $song . '">
+                        <input type="hidden" name="action" value="add">
+                        <button type="submit" class="icon_fav_not"></button>
+                    </form>'
+            );
+        } else {
+            echo(
+                '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
+                        <input type="hidden" name="number" value="' . $song . '">
+                        <input type="hidden" name="action" value="remove">
+                        <button type="submit" class="icon_fav"></button>
+                    </form>'
+            );
+        }
+    } elseif ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
+        $person = 'test';
+        $favSongs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
+
+        if (!in_array($files[$song], array_keys($favSongs))) {
             echo(
                 '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
                         <input type="hidden" name="number" value="' . $song . '">
