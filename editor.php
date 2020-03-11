@@ -65,6 +65,21 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         $name = strtolower($name);
         $name = str_replace(str_split('\:*?<>.,!'), '', $name);
 
+        if ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
+            $person = 'test';
+        } else {
+            $data = $skautis->usr->UserDetail();
+            $data = json_decode(json_encode($data), true);
+            $person = $data['Person'];
+        }
+
+        if (file_exists(__DIR__ . '/songs/' . $name . '.md')){
+            $fileExists = true;
+            $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $name . '.md'));
+        } else {
+            $fileExists = false;
+        }
+
         $file = fopen(__DIR__ . '/songs/' . $name . '.md', 'w');
         fwrite($file, "---\n");
         fwrite($file, "title: '" . $title . "'\n");
@@ -74,6 +89,19 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         }
         else {
             fwrite($file, "capo: " . $capo . "\n");
+        }
+        if (!$fileExists) {
+            fwrite($file, "made: '" . $person . "'\n");
+            fwrite($file, "revision: null\n");
+        } else {
+            $revison = $object->matter('revision');
+            if (!in_array($person, $revison)) {
+                $revison[] = $person;
+            }
+            $revisonYAML = \Symfony\Component\Yaml\Yaml::dump($revison);
+            $revisonYAML = str_replace('-', ' -', $revisonYAML);
+            fwrite($file, "made: '" . $object->matter('made') . "'\n");
+            fwrite($file, "revision:\n" . $revisonYAML);
         }
         fwrite($file, "---\n");
         fwrite($file, "\n");

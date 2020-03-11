@@ -105,7 +105,7 @@ if (file_exists(__DIR__ . '/data/usrs/' . $person . '.json')) {
     $fileContents = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
     $songFiles = array_keys($fileContents);
     if (!empty($songFiles)) {
-        echo('<div style="width: 30vw; left: 50%; top: 12em; transform: translate(1vw, 0); position: absolute; text-align: left; margin: 0">');
+        echo('<div style="width: 30vw; left: 50%; top: 17em; transform: translate(1vw, 0); position: absolute; text-align: left; margin: 0">');
         foreach ($fileContents as $songfile) {
             $fnumber = array_search($songfile['file'], $files);
             $name = str_replace(' ', '&nbsp;', $songfile['author']);
@@ -114,7 +114,7 @@ if (file_exists(__DIR__ . '/data/usrs/' . $person . '.json')) {
         echo(
         '<br>
             </div>
-            <div style="width: 30vw; left: 50%; top: 15em; transform: translate(-31vw, 0); position: absolute; text-align: right; margin: 0">'
+            <div style="width: 30vw; left: 50%; top: 17em; transform: translate(-31vw, 0); position: absolute; text-align: right; margin: 0">'
         );
         foreach ($fileContents as $songfile) {
             $fnumber = array_search($songfile['file'], $files);
@@ -124,7 +124,7 @@ if (file_exists(__DIR__ . '/data/usrs/' . $person . '.json')) {
         echo(
         '<br>
             </div>
-            <div style="width: 2vw; left: 50%; top: 15em; transform: translate(-1vw, 0); position: absolute; text-align: center; margin: 0">'
+            <div style="width: 2vw; left: 50%; top: 17em; transform: translate(-1vw, 0); position: absolute; text-align: center; margin: 0">'
         );
         foreach ($fileContents as $songfile) {
             $fnumber = array_search($songfile['file'], $files);
@@ -133,7 +133,7 @@ if (file_exists(__DIR__ . '/data/usrs/' . $person . '.json')) {
         echo('<br>');
     } else {
         echo(
-        '<div style="width: 30vw; left: 50%; top: 15em; transform: translate(-15vw, 0); position: absolute; text-align: center; margin: 0">Seznam oblíbených písní je prázdný</div>'
+        '<div style="width: 30vw; left: 50%; top: 17em; transform: translate(-15vw, 0); position: absolute; text-align: center; margin: 0">Seznam oblíbených písní je prázdný</div>'
         );
     }
 } else {
@@ -142,6 +142,6 @@ if (file_exists(__DIR__ . '/data/usrs/' . $person . '.json')) {
     fwrite($file, json_encode($songs, JSON_FORCE_OBJECT));
     fclose($file);
     echo(
-    '<div style="width: 30vw; left: 50%; top: 15em; transform: translate(-15vw, 0); position: absolute; text-align: center; margin: 0">Seznam oblíbených písní je prázdný</div>'
+    '<div style="width: 30vw; left: 50%; top: 17em; transform: translate(-15vw, 0); position: absolute; text-align: center; margin: 0">Seznam oblíbených písní je prázdný</div>'
     );
 }

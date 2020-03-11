@@ -123,10 +123,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
     ?>
 </div>
-<div style="position: absolute; width: 64vw; left: 18vw;top: 0; max-height: 265px">
+<div style="position: absolute; width: 64vw; left: 18vw;top: 0; height: 100%">
     <h1><?php echo($object->matter('title')) ?></h1>
     <h2><?php echo($object->matter('author')) ?></h2>
-    <div class="song_body"><p id="song_text"><?php echo($object->body()) ?></p></div>
+    <div class="song_body">
+        <p id="song_text"><?php echo($object->body()) ?></p>
+        <div style="bottom: 0; left: -20vw; margin: 20px; position: relative">
+            <p>Zpracoval(a): <?php echo ($object->matter('made'));
+                if ($object->matter('revision') != null) {
+                    echo('</p> <br> <p>Upravili: ');
+                    $start = $object->matter('revision')[0];
+                    foreach ($object->matter('revision') as $maker) {
+                        if ($start != $maker) {
+                            echo(', ' . $maker);
+                        } else {
+                            echo($maker);
+                        }
+                    }
+                }
+                ?></p>
+    </div>
 </div>
 <?php
         if ($object->matter('capo') != null) {
@@ -147,5 +163,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     }
 }
 ?>
+</div>
 </body>
 </html>
