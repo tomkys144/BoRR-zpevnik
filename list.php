@@ -2,14 +2,14 @@
 session_start();
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/skautis_manager.php';
-$files = scandir(__DIR__ . '/songs/');
+$files = scandir(__DIR__ . '/data/songs/');
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>BoRR zpěvník - Rejstřík</title>
-    <link rel="icon" href="data/borr.png">
+    <link rel="icon" href="data/imgs/borr.png">
     <link rel="stylesheet" href="css.css">
     <script>
         let host = window.location.hostname;
@@ -78,7 +78,7 @@ $files = scandir(__DIR__ . '/songs/');
             continue;
         }
         $fnumber = array_search($f, $files);
-        $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $f));
+        $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $f));
         $name = str_replace(' ', '&nbsp;', $object->matter('title'));
         echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button style="width: max-content" id="list" formaction="songs.php" type="submit">' . $name . '</button></form>');
     }
@@ -94,7 +94,7 @@ $files = scandir(__DIR__ . '/songs/');
             continue;
         }
         $fnumber = array_search($f, $files);
-        $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $f));
+        $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $f));
         $name = str_replace(' ', '&nbsp;', $object->matter('author'));
         echo('<form><input type="hidden" name="number" value="' . $fnumber . '"><button style="width: max-content" id="list" formaction="songs.php" type="submit">' . $name . '</button></form>');
     }
@@ -104,7 +104,7 @@ $files = scandir(__DIR__ . '/songs/');
 <div style="width: 2vw; left: 50%; top: 12em; transform: translate(-1vw, 0); position: absolute; text-align: center; margin: 0">
     <?php
     require_once __DIR__ . '/vendor/autoload.php';
-    $files = scandir(__DIR__ . '/songs/');
+    $files = scandir(__DIR__ . '/data/songs/');
     foreach ($files as $f) {
         if ($f === '.' || $f === '..') {
             continue;

@@ -7,20 +7,22 @@ if ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
 } else {
     $data = $skautis->usr->UserDetail();
     $data = json_decode(json_encode($data), true);
-    $person = $data['ID_Person'];
+    $dataPerson = $skautis->org->PersonDetail(array("ID" => $data['ID_Person']));
+    $dataPerson = json_decode(json_encode($dataPerson), true);
+    $person = $dataPerson['DisplayName'];
 }
-$files = scandir(__DIR__ . '/songs/');
+$files = scandir(__DIR__ . '/data/songs/');
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fnumber = $_REQUEST['number'];
     $action = $_REQUEST['action'];
     $fname = $files[$fnumber];
-    $songs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
+    $songs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $data['ID_Person'] . '.json'), true);
     if (empty($songs)) {
         $songs = array();
     }
 
     if ($action === 'add') {
-        $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $fname));
+        $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $fname));
         $song = array(
             'title' => $object->matter('title'),
             'author' => $object->matter('author'),
@@ -29,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $new = array($fname => $song);
         $songs = array_merge($songs, $new);
         ksort($songs);
-        file_put_contents(__DIR__ . '/data/usrs/' . $person . '.json', json_encode($songs, JSON_FORCE_OBJECT), LOCK_EX);
+        file_put_contents(__DIR__ . '/data/usrs/' . $data['ID_Person'] . '.json', json_encode($songs, JSON_FORCE_OBJECT), LOCK_EX);
         if ($_SERVER['HTTPS']) {
             header('Location: https://' . $_SERVER["HTTP_HOST"] . '/songs.php?number=' . $fnumber);
         } else {
@@ -39,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } elseif ($action === 'remove') {
         unset($songs[$fname]);
         ksort($songs);
-        file_put_contents(__DIR__ . '/data/usrs/' . $person . '.json', json_encode($songs, JSON_FORCE_OBJECT), LOCK_EX);
+        file_put_contents(__DIR__ . '/data/usrs/' . $data['ID_Person'] . '.json', json_encode($songs, JSON_FORCE_OBJECT), LOCK_EX);
         if ($_SERVER['HTTPS']) {
             header('Location: https://' . $_SERVER["HTTP_HOST"] . '/songs.php?number=' . $fnumber);
         } else {
@@ -53,8 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <html lang="en">
     <head>
         <meta charset="UTF-32">
-        <title>BoRR zpěvník - <?php echo($data['Person']) ?> - oblíbené</title>
-        <link rel="icon" href="data/borr.png">
+        <title>BoRR zpěvník - <?php echo($person) ?> - oblíbené</title>
+        <link rel="icon" href="data/imgs/borr.png">
         <link rel="stylesheet" href="css.css">
         <script>
             let host = window.location.hostname;
@@ -98,11 +100,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </div>
 <div style="position: absolute; width: 64vw; left: 18vw;top: 0">
     <h1>Oblíbené písničky</h1>
-    <h2><?php echo($data['Person']) ?></h2>
+    <h2><?php echo($person) ?></h2>
 </div>
 <?php
-if (file_exists(__DIR__ . '/data/usrs/' . $person . '.json')) {
-    $fileContents = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
+if (file_exists(__DIR__ . '/data/usrs/' . $data['ID_Person'] . '.json')) {
+    $fileContents = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $data['ID_Person'] . '.json'), true);
     $songFiles = array_keys($fileContents);
     if (!empty($songFiles)) {
         echo('<div style="width: 30vw; left: 50%; top: 17em; transform: translate(1vw, 0); position: absolute; text-align: left; margin: 0">');
@@ -137,7 +139,7 @@ if (file_exists(__DIR__ . '/data/usrs/' . $person . '.json')) {
         );
     }
 } else {
-    $file = fopen(__DIR__ . '/data/usrs/' . $person . '.json', 'w');
+    $file = fopen(__DIR__ . '/data/usrs/' . $data['ID_Person'] . '.json', 'w');
     $songs = array();
     fwrite($file, json_encode($songs, JSON_FORCE_OBJECT));
     fclose($file);

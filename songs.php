@@ -1,7 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/skautis_manager.php';
-$files = scandir(__DIR__ . '/songs/');
+$files = scandir(__DIR__ . '/data/songs/');
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $song = $_REQUEST['number'];
     if ($song <= 1) {
@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
         exit();
     }
     else {
-    $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $files[$song]));
+    $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $files[$song]));
     $next_song = $song + 1;
     $previous_song = $song - 1;
 ?>
@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
 <head>
     <meta charset="UTF-32">
     <title>BoRR zpěvník - <?php echo($object->matter("title")) ?></title>
-    <link rel="icon" href="data/borr.png">
+    <link rel="icon" href="data/imgs/borr.png">
     <link rel="stylesheet" href="css.css">
     <script>
         let host = window.location.hostname;

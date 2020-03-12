@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="UTF-8">
     <title>BoRR zpěvník</title>
-    <link rel="icon" href="data/borr.png">
+    <link rel="icon" href="data/imgs/borr.png">
     <link rel="stylesheet" href="css.css">
     <script>
         let host = window.location.hostname;

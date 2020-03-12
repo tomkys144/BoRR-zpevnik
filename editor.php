@@ -6,7 +6,7 @@ session_start();
 <head>
     <meta charset="UTF-8">
     <title>BoRR zpěvník</title>
-    <link rel="icon" href="data/borr.png">
+    <link rel="icon" href="data/imgs/borr.png">
     <link rel="stylesheet" href="css.css">
     <script>
         let host = window.location.hostname;
@@ -70,17 +70,28 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         } else {
             $data = $skautis->usr->UserDetail();
             $data = json_decode(json_encode($data), true);
-            $person = $data['Person'];
+            $dataPerson = $skautis->org->PersonDetail(array("ID" => $data['ID_Person']));
+            $dataPerson = json_decode(json_encode($dataPerson), true);
+            $person = $dataPerson['DisplayName'];
         }
 
-        if (file_exists(__DIR__ . '/songs/' . $name . '.md')){
+        if (file_exists(__DIR__ . '/data/songs/' . $name . '.md')){
             $fileExists = true;
-            $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $name . '.md'));
+            $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $name . '.md'));
+
+            $fileContents = file_get_contents(__DIR__ . '/data/songs/' . $name . '.md');
+            if (!file_exists(__DIR__ . '/data/backup/' . $name)) {
+                mkdir(__DIR__ . '/data/backup/' . $name);
+            }
+            $file = fopen(__DIR__ . '/data/backup/' . $name . '/' . date('Y-m-d_H-i-s'), 'w');
+            fwrite($file, $fileContents);
+            fclose($file);
+
         } else {
             $fileExists = false;
         }
 
-        $file = fopen(__DIR__ . '/songs/' . $name . '.md', 'w');
+        $file = fopen(__DIR__ . '/data/songs/' . $name . '.md', 'w');
         fwrite($file, "---\n");
         fwrite($file, "title: '" . $title . "'\n");
         fwrite($file, "author: '" . $author . "'\n");
@@ -95,13 +106,20 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
             fwrite($file, "revision: null\n");
         } else {
             $revison = $object->matter('revision');
-            if (!in_array($person, $revison)) {
+            $made = $object->matter('made');
+            if (!in_array($person, $revison) && $person !== $made) {
                 $revison[] = $person;
             }
-            $revisonYAML = \Symfony\Component\Yaml\Yaml::dump($revison);
-            $revisonYAML = str_replace('-', ' -', $revisonYAML);
-            fwrite($file, "made: '" . $object->matter('made') . "'\n");
-            fwrite($file, "revision:\n" . $revisonYAML);
+            if ($revison != null) {
+                $revisonYAML = \Symfony\Component\Yaml\Yaml::dump($revison);
+                $revisonYAML = \Symfony\Component\Yaml\Yaml::dump($revison);
+                $revisonYAML = str_replace('-', ' -', $revisonYAML);
+                fwrite($file, "made: '" . $made . "'\n");
+                fwrite($file, "revision:\n" . $revisonYAML);
+            } else {
+                fwrite($file, "made: '" . $made . "'\n");
+                fwrite($file, "revision: null\n");
+            }
         }
         fwrite($file, "---\n");
         fwrite($file, "\n");
@@ -109,13 +127,12 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
         fclose($file);
 
         echo(
-            '<div class="success">Písnička ' . $title . ' byla úspěšně přidána!</div>'
-        );
+            '<div class="success">Písnička ' . $title . ' byla úspěšně přidána!</div>');
     }
 }
 elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $song_file = $_REQUEST['song'];
-    $song_contents = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $song_file));
+    $song_contents = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $song_file));
     $song_contents_title = $song_contents->matter('title');
     $song_contents_author = $song_contents->matter('author');
     if ($song_contents->matter('capo') == null) {
@@ -170,12 +187,12 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
         </script>
             <ul>
                 <?php
-                $files = scandir(__DIR__ . '/songs/');
+                $files = scandir(__DIR__ . '/data/songs/');
                 foreach ($files as $file){
                     if ($file === '.' || $file==='..') {
                         continue;
                     }
-                    $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/songs/' . $file));
+                    $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $file));
                     $name = str_replace(' ', '_', $object->matter('title'));
                     $name = str_replace(str_split('\:*?<>.,!'), '', $name);
                     $name = iconv('utf-8', 'ascii//TRANSLIT', $name);
