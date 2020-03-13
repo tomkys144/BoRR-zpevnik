@@ -2,7 +2,7 @@
 title: 'Divoké koně'
 author: 'Jaromír Nohavica'
 capo: 5
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

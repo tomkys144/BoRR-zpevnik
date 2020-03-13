@@ -2,7 +2,7 @@
 title: 'Dívka s perlami ve vlasech'
 author: 'Aleš Brychta'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

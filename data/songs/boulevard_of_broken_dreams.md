@@ -2,7 +2,7 @@
 title: 'Boulevard of Broken Dreams'
 author: 'Green Day'
 capo: 3
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

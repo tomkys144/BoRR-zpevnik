@@ -2,7 +2,7 @@
 title: 'Ještě jedno kafe'
 author: 'Robert Křesťan, Druhá tráva'
 capo: 3
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

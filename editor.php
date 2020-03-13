@@ -72,7 +72,7 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
             $data = json_decode(json_encode($data), true);
             $dataPerson = $skautis->org->PersonDetail(array("ID" => $data['ID_Person']));
             $dataPerson = json_decode(json_encode($dataPerson), true);
-            $person = $dataPerson['DisplayName'];
+            $person = $dataPerson['DisplayName'] . ' {' . $dataPerson['ID_Sex'] . '}';
         }
 
         if (file_exists(__DIR__ . '/data/songs/' . $name . '.md')){
@@ -194,8 +194,8 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
                     }
                     $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $file));
                     $name = str_replace(' ', '_', $object->matter('title'));
-                    $name = str_replace(str_split('\:*?<>.,!'), '', $name);
                     $name = iconv('utf-8', 'ascii//TRANSLIT', $name);
+                    $name = str_replace(str_split("\:'*?<>.,!"), "", $name);
                     $name = strtolower($name);
                     $name .= ".md'";
                     $name = "'" . $name;

@@ -2,7 +2,7 @@
 title: "Knocking' on Heaven's Door"
 author: 'Bob Dylan'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

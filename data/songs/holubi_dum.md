@@ -2,7 +2,7 @@
 title: 'Holubí dům'
 author: 'Jiří Schelinger'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

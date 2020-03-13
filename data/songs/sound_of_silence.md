@@ -2,7 +2,7 @@
 title: 'Sound of Silence'
 author: 'Simon'
 capo: 6
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

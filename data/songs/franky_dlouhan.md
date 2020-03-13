@@ -2,7 +2,7 @@
 title: 'Franky Dlouhán'
 author: 'Brontosauři'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

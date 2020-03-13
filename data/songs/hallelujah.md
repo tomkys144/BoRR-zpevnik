@@ -2,7 +2,7 @@
 title: 'Hallelujah'
 author: 'Leonard Cohen'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

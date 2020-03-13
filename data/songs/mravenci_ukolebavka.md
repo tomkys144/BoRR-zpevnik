@@ -2,7 +2,7 @@
 title: 'Mravenčí ukolébavka'
 author: 'Zdeněk Svěrák, Jaroslav Uhlíř'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

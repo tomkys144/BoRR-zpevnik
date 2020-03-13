@@ -1,6 +1,6 @@
 <?php
 session_start();
-require __DIR__. '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
 $applicationID = "6116cad6-ddbc-4380-807a-d9525cc35b95";
 $isTestMode = false;
@@ -15,7 +15,8 @@ function login()
     exit();
 }
 
-function logout() {
+function logout()
+{
     global $skautis;
     $logoutUrl = $skautis->getLogoutUrl();
     header('Location: ' . $logoutUrl);
@@ -26,6 +27,18 @@ function login_finish()
 {
     global $skautis;
     $skautis->setLoginData($_SESSION['skautis_response']);
+}
+
+function isAdmin()
+{
+    $admins = ['42866', '43149', '43296'];
+    global $skautis;
+    $data = $skautis->UserManagement->UserDetail();
+    if (in_array($data->ID_Person, $admins)) {
+        return true;
+    } else {
+        return false;
+    }
 }
 
 if (isset($_GET['logout'])) {

@@ -2,7 +2,7 @@
 title: 'One call away'
 author: 'Charlie Puth'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

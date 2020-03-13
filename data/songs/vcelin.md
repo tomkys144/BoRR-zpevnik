@@ -2,7 +2,7 @@
 title: 'Včelín'
 author: 'Čechomor'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

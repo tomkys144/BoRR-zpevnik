@@ -2,7 +2,7 @@
 title: 'Bratříčku, zavírej vrátka'
 author: 'Karel Kryl'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

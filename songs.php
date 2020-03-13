@@ -129,19 +129,52 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     <div class="song_body">
         <p id="song_text"><?php echo($object->body()) ?></p>
         <div style="bottom: 0; left: -20vw; margin: 20px; position: relative">
-            <p>Zpracoval(a): <?php echo ($object->matter('made'));
-                if ($object->matter('revision') != null) {
-                    echo('</p> <br> <p>Upravili: ');
-                    $start = $object->matter('revision')[0];
-                    foreach ($object->matter('revision') as $maker) {
-                        if ($start != $maker) {
-                            echo(', ' . $maker);
-                        } else {
-                            echo($maker);
-                        }
+            <p>
+            <?php
+            if (strpos($object->matter('made'), '{male}') !== false) {
+                $made = str_replace(' {male}', '', $object->matter('made'));
+                echo ('Zpracoval: ' . $made);
+            } elseif (strpos($object->matter('made'), '{female}') !== false) {
+                $made = str_replace(' {female}', '', $object->matter('made'));
+                echo ('Zpracovala: ' . $made);
+            } else {
+                $made = $object->matter('made');
+                echo('Zpracoval(a): ' . $made);
+            }
+            if ($object->matter('revision') != null && sizeof($object->matter('revision')) != 1) {
+                echo('</p><p>Upravil');
+                $start = $object->matter('revision')[0];
+                $onlyFemales = true;
+                foreach ($object->matter('revision') as $maker) {
+                    $makers = '';
+                    if (strpos($maker, '{male}') !== false) {
+                        $onlyFemales = false;
+                    }
+                    $maker = str_replace(' {female}', '', $maker);
+                    $maker = str_replace(' {male}', '', $maker);
+                    if ($start != $maker) {
+                        $makers .= ', ' . $maker;
+                    } else {
+                        $makers .= $maker;
                     }
                 }
-                ?></p>
+                if ($onlyFemales) {
+                    echo ('y: ' . $makers);
+                } else {
+                    echo ('i: ' . $makers);
+                }
+            } elseif (($object->matter('revision') != null && sizeof($object->matter('revision')) == 1)) {
+                if (strpos($object->matter('revision')[0], '{male}') !== false) {
+                    $revision = str_replace(' {male}', '', $object->matter('revision')[0]);
+                    echo('</p><p>Upravil: ' . $revision);
+                } elseif (strpos($object->matter('revision')[0], '{female}') !== false) {
+                    $revision = str_replace(' {female}', '', $object->matter('revision')[0]);
+                    echo('</p><p>Upravila: ' . $revision);
+                } else {
+                    echo('</p><p>Upravil(a): ' . $object->matter('revision')[0]);
+                }
+            }
+            ?></p>
     </div>
 </div>
 <?php

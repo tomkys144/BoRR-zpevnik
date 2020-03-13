@@ -2,7 +2,7 @@
 title: 'Darmoděj'
 author: 'Jaromír Nohavica'
 capo: null
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 

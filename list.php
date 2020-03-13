@@ -88,7 +88,7 @@ $files = scandir(__DIR__ . '/data/songs/');
 <div style="width: 30vw; left: 50%; top: 12em; transform: translate(1vw, 0); position: absolute; text-align: left; margin: 0">
     <?php
     require_once __DIR__ . '/vendor/autoload.php';
-    $files = scandir(__DIR__ . '/songs/');
+    $files = scandir(__DIR__ . '/data/songs/');
     foreach ($files as $f) {
         if ($f === '.' || $f === '..') {
             continue;

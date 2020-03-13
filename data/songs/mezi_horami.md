@@ -2,7 +2,7 @@
 title: 'Mezi horami'
 author: 'Čechomor'
 capo: 5
-made: 'Kysela Tomáš (Kyslík)'
+made: 'Kysela Tomáš (Kyslík) {male}'
 revision: null
 ---
 
