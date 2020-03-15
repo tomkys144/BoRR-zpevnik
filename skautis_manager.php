@@ -31,7 +31,7 @@ function login_finish()
 
 function isAdmin()
 {
-    $admins = ['42866', '43149', '43296'];
+    $admins = ['42486', '43149', '43296'];
     global $skautis;
     $data = $skautis->UserManagement->UserDetail();
     if (in_array($data->ID_Person, $admins)) {

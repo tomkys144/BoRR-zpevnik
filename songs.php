@@ -58,8 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if ($skautisUser->isLoggedIn(true) || $_SERVER["HTTP_HOST"] === 'localhost:8080') {
                 echo (
                     '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
-                    <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>
-                    <form method="get" action="skautis_manager.php">
+                    <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>');
+                if (isAdmin() === true) {
+                    echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button>');
+                }
+                echo (
+                    '<form method="get" action="skautis_manager.php">
                     <input type="hidden" name="logout" value="https://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
                     <input class="icon_user-included" type="submit" value="Odhlásit se">
                     </form>'

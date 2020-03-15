@@ -2,12 +2,19 @@
 session_start();
 require __DIR__ . '/vendor/autoload.php';
 require __DIR__ . '/skautis_manager.php';
+
+$skautisUser = $skautis->getUser();
+if ($skautisUser->isLoggedIn(true)){
+    $logoutTime = $skautis->UserManagement->LoginUpdateRefresh($skautisUser->getLoginId());
+    echo ($logoutTime);
+}
+
 if ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
     $person = 'test';
 } else {
-    $data = $skautis->usr->UserDetail();
+    $data = $skautis->UserManagement->UserDetail();
     $data = json_decode(json_encode($data), true);
-    $dataPerson = $skautis->org->PersonDetail(array("ID" => $data['ID_Person']));
+    $dataPerson = $skautis->OrganizationUnit->PersonDetail(array("ID" => $data['ID_Person']));
     $dataPerson = json_decode(json_encode($dataPerson), true);
     $person = $dataPerson['DisplayName'];
 }
@@ -81,8 +88,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($skautisUser->isLoggedIn(true) || $_SERVER["HTTP_HOST"] === 'localhost:8080') {
                 echo (
                     '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
-                    <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>
-                    <form method="get" action="skautis_manager.php">
+                    <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>');
+                if (isAdmin() === true) {
+                    echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button>');
+                }
+                echo (
+                    '<form method="get" action="skautis_manager.php">
                     <input type="hidden" name="logout" value="http://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
                     <input class="icon_user-included" type="submit" value="Odhlásit se">
                     </form>'

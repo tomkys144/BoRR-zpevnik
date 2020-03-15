@@ -23,15 +23,20 @@ require __DIR__ . '/skautis_manager.php';
 <body>
 <?php
 if ($_SERVER["HTTP_HOST"] !== 'localhost:8080') {
-    if (!isAdmin()) {
-        echo(
-        '<div style="width: 100vw; height: 100vh; background-color: red; text-align: center; font-size: 2em; font-weight: bold; color: white">
+    $skautisUser = $skautis->getUser();
+    if ($skautisUser->isLoggedIn(true)) {
+        if (isAdmin() === false) {
+            echo(
+            '<div style="width: 100vw; height: 100vh; background-color: red; text-align: center; font-size: 2em; font-weight: bold; color: white">
             <p style="position: center">Uživatel nemá práva</p>
              </div>'
-        );
-        sleep(5);
-        header('Location: /index.php');
-        exit();
+            );
+            sleep(5);
+            header('Location: /index.php');
+            exit();
+        }
+    } else {
+        login();
     }
 }
 ?>

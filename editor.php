@@ -153,9 +153,12 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <?php
             $skautisUser = $skautis->getUser();
             if ($skautisUser->isLoggedIn(true)) {
+                echo ('<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>');
+                if (isAdmin() === true) {
+                    echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button>');
+                }
                 echo (
-                    '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
-                    <form method="get" action="skautis_manager.php"><br>
+                    '<form method="get" action="skautis_manager.php">
                     <input type="hidden" name="logout" value="http://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
                     <input class="icon_user-included" type="submit" value="Odhlásit se">
                     </form>'
