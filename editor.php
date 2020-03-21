@@ -28,6 +28,9 @@ if ($_SERVER['HTTP_HOST'] !== 'localhost:8080'){
         login();
         exit();
     }
+    $ID = $skautisUser->getLoginId();
+    $params = ['ID' => $ID];
+    $logoutTime = json_decode(json_encode($skautis->UserManagement->loginUpdateRefresh($params)), true);
     $userDetail = $skautis->UserManagement->UserDetail();
     $userMemberships = $skautis->OrganizationUnit->MembershipAllPerson([
         'ID_Person' => $userDetail->ID_Person,
@@ -155,7 +158,7 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
             if ($skautisUser->isLoggedIn(true)) {
                 echo ('<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>');
                 if (isAdmin() === true) {
-                    echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button>');
+                    echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button></a>');
                 }
                 echo (
                     '<form method="get" action="skautis_manager.php">

@@ -34,6 +34,10 @@ if ($_SERVER["HTTP_HOST"] !== 'localhost:8080') {
             sleep(5);
             header('Location: /index.php');
             exit();
+        } else {
+            $ID = $skautisUser->getLoginId();
+            $params = ['ID' => $ID];
+            $logoutTime = json_decode(json_encode($skautis->UserManagement->loginUpdateRefresh($params)), true);
         }
     } else {
         login();

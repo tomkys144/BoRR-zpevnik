@@ -10,6 +10,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     header('Location: ' . $_SESSION['backlink']);
     exit();
 }
+
+$skautisUser = $skautis->getUser();
+if ($skautisUser->isLoggedIn(true)){
+    $ID = $skautisUser->getLoginId();
+    $params = ['ID' => $ID];
+    $logoutTime = json_decode(json_encode($skautis->UserManagement->loginUpdateRefresh($params)), true);
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
