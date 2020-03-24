@@ -34,6 +34,7 @@ if ($skautisUser->isLoggedIn(true)){
             }
         }
     </script>
+    <script src="data/libs/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <script>

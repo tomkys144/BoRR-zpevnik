@@ -37,6 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             }
         }
     </script>
+    <script src="data/libs/jquery-3.4.1.min.js"></script>
 </head>
 <body>
 <script>
@@ -64,14 +65,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
             <?php
             $skautisUser = $skautis->getUser();
             if ($skautisUser->isLoggedIn(true) || $_SERVER["HTTP_HOST"] === 'localhost:8080') {
+                $now = DateTime::createFromFormat("Y-m-d H:i:s.v", date("Y-m-d H:i:s.v"));
+                $logoutTime=str_replace('T', ' ', $logoutTime['DateLogout']);
+                $logout = new DateTime($logoutTime);
+                $interval = date_diff($now, $logout);
+                $time = $interval->i*60 + $interval->s;
+                if ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
+                    $time = 1800;
+                }
                 echo (
                     '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
                     <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>');
                 if (isAdmin() === true) {
-                    echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button></a>');
+                    echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button></a><br>');
                 }
                 echo (
-                    '<form method="get" action="skautis_manager.php">
+                    '<button class="icon_user-included">Čas do odhlášení:</button>
+                    <div id="logoutTimer">
+                        <div id="logoutTimerBar">
+                        </div>
+                    </div>
+                    <script>
+                        function progress(timeleft, timetotal, $element) {
+                            var progressBarWidth = timeleft * $element.width() / timetotal;
+                            $element.find("div").animate({ width: progressBarWidth }, 500).html(Math.floor(timeleft/60) + ":"+ timeleft%60);
+                            if(timeleft > 0) {
+                                setTimeout(function() {
+                                    progress(timeleft - 1, timetotal, $element);
+                                }, 1000);
+                            } else if (timeleft <= 0) {
+                                location.reload();
+                            }
+                        };
+                    
+                        progress(' . $time . ', 1800, $("#logoutTimer"));
+                </script >
+                    <form method="get" action="skautis_manager.php">
                     <input type="hidden" name="logout" value="https://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
                     <input class="icon_user-included" type="submit" value="Odhlásit se">
                     </form>'

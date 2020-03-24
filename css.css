@@ -389,3 +389,22 @@ button.editor{
     background-size: 40px;
     background-repeat: no-repeat;
 }
+
+#logoutTimer {
+    width: 141px;
+    height: calc(1em + 2px);
+    background-color: transparent;
+    border: 1px solid gray;
+}
+
+#logoutTimerBar {
+    width: 141px;
+    height: calc(1em + 2px);
+    text-align: right;
+    font-size: 1em;
+    line-height: calc(1em + 2px);
+    background-color: gray;
+    color: white;
+    mix-blend-mode: difference;
+    overflow: visible;
+}
