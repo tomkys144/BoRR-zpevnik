@@ -5,6 +5,12 @@ body {
     background-size: 8em;
     background-position: right top;
 }
+@media print {
+    body {
+        background-color: white;
+        background-image: none;
+    }
+}
 
 h1 {
     font-size: 5em;
