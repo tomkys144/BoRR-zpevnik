@@ -1,15 +1,17 @@
 <?php
-error_reporting(E_ALL);
 require __DIR__ . '/vendor/autoload.php';
 
 $files = scandir(__DIR__ . '/data/songs/');
 $files = array_diff($files, ['.', '..']);
 
 $pdf = new \Mpdf\Mpdf([
-    'mode' => 'utf-8',
+    'mode' => 'utf-32',
     'format' => 'A4',
     'orientation' => 'L'
 ]);
+
+$pdf->useSubstitutions = false;
+$pdf->simpleTables = true;
 
 $date = date('d. m. o');
 
@@ -68,69 +70,83 @@ foreach ($authors as $author) {
 $pdf->WriteHTML('</div>', \Mpdf\HTMLParserMode::HTML_BODY, false, true);
 
 foreach ($files as $file) {
-    $pdf->AddPage();
-    $pdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
     $object = \Spatie\YamlFrontMatter\YamlFrontMatter::parse(file_get_contents(__DIR__ . '/data/songs/' . $file));
-    $pdf->WriteHTML(
-        '<div style="position: absolute; width: 190.08mm; left: 53.46mm;top: 0; max-height: 265px">
-              <h1>' . $object->matter('title') . '</h1>
-              <h2>' . $object->matter('author') . '</h2>
-              <div class="song_body"><p id="song_text">' . $object->body() . '</p></div></div>
-        <div style="bottom: 0; left: -20mm; margin: 20px; position: relative">
-        <p>',
-    \Mpdf\HTMLParserMode::HTML_BODY, true, false
-    );
-    if (strpos($object->matter('made'), '{male}') !== false) {
-    $made = str_replace(' {male}', '', $object->matter('made'));
-    $pdf->WriteHTML('Zpracoval: ' . $made, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
-    } elseif (strpos($object->matter('made'), '{female}') !== false) {
-    $made = str_replace(' {female}', '', $object->matter('made'));
-    $pdf->WriteHTML('Zpracovala: ' . $made, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
-    } else {
-        $made = $object->matter('made');
-        $pdf->WriteHTML('Zpracoval(a): ' . $made, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
-    }
-    if ($object->matter('revision') != null && sizeof($object->matter('revision')) != 1) {
-        $pdf->WriteHTML('</p><p>Upravil', \Mpdf\HTMLParserMode::HTML_BODY, false, false);
-        $start = $object->matter('revision')[0];
-        $onlyFemales = true;
-        foreach ($object->matter('revision') as $maker) {
-            $makers = '';
-            if (strpos($maker, '{male}') !== false) {
-                $onlyFemales = false;
+    $song = $object->body();
+    $song = str_replace('<wrapper><chord>', '', $song);
+    $song = str_replace('</wrapper></chord>', '', $song);
+    $lineNo = substr_count($song, '<br>') + 1;
+    if ($lineNo <=20) {
+        $pdf->AddPage();
+        $pdf->SetColumns(2, 'J', 2);
+        $pdf->WriteHTML($stylesheet, \Mpdf\HTMLParserMode::HEADER_CSS);
+
+        $numberVerses = substr_count($song, '<verse');
+
+        $verseOffset = 0;
+
+        for ($x=1; $x < $numberVerses; $x++) {
+            $firstVerse = strpos($song, '<verse', $verseOffset);
+            $secondVerse = strpos($song, '<verse', 6 + $firstVerse);
+            $lengthVerse = $secondVerse - $firstVerse;
+            $verse = substr($song, $firstVerse, $lengthVerse - 1);
+
+            $verseOffset = $verseOffset+$lengthVerse+$firstVerse;
+
+            $verseNoEnd = strpos($verse, '"></verse>');
+            $verseNoLength = $verseNoEnd - 15;
+            $verseNo = substr($verse, 15, $verseNoLength);
+
+            $numLines = substr_count($verse, '<br>');
+
+            $output = $verseNo;
+            for ($y = 1; $y <= $numLines; $y++) {
+                $output .= "<br>\n";
             }
-            $maker = str_replace(' {female}', '', $maker);
-            $maker = str_replace(' {male}', '', $maker);
-            if ($start != $maker) {
-                $makers .= ', ' . $maker;
+            if ($x = 1) {
+                $pdf->WriteHTML($output, \Mpdf\HTMLParserMode::HTML_BODY, true, false);
             } else {
-                $makers .= $maker;
+                $pdf->WriteHTML($output, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
             }
         }
-        if ($onlyFemales) {
-            $pdf->WriteHTML('y: ' . $makers, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
-        } else {
-            $pdf->WriteHTML('i: ' . $makers, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
+
+        //last verse
+        $verseStart = strpos($song, '<verse', $verseOffset);
+        $verse = substr($song, $verseStart);
+
+        $verseNoEnd = strpos($verse, '"></verse>');
+        $verseNoLength = $verseNoEnd - 15;
+        $verseNo = substr($verse, 15, $verseNoLength);
+
+        $numLines = substr_count($verse, '<br>');
+
+        $output = $verseNo;
+        for ($y = 1; $y < $numLines; $y++) {
+            $output .= "<br>\n";
         }
-    } elseif (($object->matter('revision') != null && sizeof($object->matter('revision')) == 1)) {
-        if (strpos($object->matter('revision')[0], '{male}') !== false) {
-            $revision = str_replace(' {male}', '', $object->matter('revision')[0]);
-            $pdf->WriteHTML('</p><p>Upravil: ' . $revision, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
-        } elseif (strpos($object->matter('revision')[0], '{female}') !== false) {
-            $revision = str_replace(' {female}', '', $object->matter('revision')[0]);
-            $pdf->WriteHTML('</p><p>Upravila: ' . $revision, \Mpdf\HTMLParserMode::HTML_BODY, false, false);
-        } else {
-            $pdf->WriteHTML('</p><p>Upravil(a): ' . $object->matter('revision')[0], \Mpdf\HTMLParserMode::HTML_BODY, false, false);
+        $pdf->WriteHTML($output, \Mpdf\HTMLParserMode::HTML_BODY, false, true);
+
+        $pdf->AddColumn();
+
+        $verseOffset=0;
+
+        for ($x=1; $x < $numberVerses; $x++) {
+            $verseStart = strpos($song, '</verse>', $verseOffset) + 8;
+            $verseEnd = strpos($song, '<verse', $verseStart);
+            $verseLength = $verseEnd - $verseStart;
+            $verse = substr($song, $verseStart,$verseLength);
+
+            $verseOffset = $verseEnd;
+
+            $output .=$verse;
         }
-    }
-    $pdf->WriteHTML(
-        '</p>
-        </div>
-        </div>',
-        \Mpdf\HTMLParserMode::HTML_BODY, false, false
-    );
-    if ($object->matter('capo') != null) {
-        $pdf->WriteHTML('<div class="capo">Capo ' . $object->matter('capo') . '</div>', \Mpdf\HTMLParserMode::HTML_BODY, false, true);
+
+        //Last verse
+        $verseStart = strpos($song, '</verse>', $verseOffset) + 8;
+        $verse = substr($song, $verseStart);
+
+        $output .=$verse;
+
+        $pdf->WriteHTML($output, \Mpdf\HTMLParserMode::HTML_BODY, true, true);
     }
 }
 

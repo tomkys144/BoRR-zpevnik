@@ -125,6 +125,10 @@ if ($_SERVER['REQUEST_METHOD']=='POST') {
                 fwrite($file, "revision: null\n");
             }
         }
+        $body = str_replace('&#x1d106;', '||:', $body);
+        $body = str_replace('𝄆', '||:', $body);
+        $body = str_replace('&#x1d107;', ':||', $body);
+        $body = str_replace('𝄇', ':||', $body);
         fwrite($file, "---\n");
         fwrite($file, "\n");
         fwrite($file, $body);
@@ -250,8 +254,8 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
         <button onclick="addVerse()" class="editor_button">Přidat sloku</button>
         <button onclick="addChord()" class="editor_button">Přidat akord</button>
         <button onclick="addBreak()" class="editor_button">Přidat konec řádku</button>
-        <button onclick="addRepetitionStart()" class="editor_button">&#x1d106;</button>
-        <button onclick="addRepetitionEnd()" class="editor_button">&#x1d107;</button>
+        <button onclick="addRepetitionStart()" class="editor_button">||:</button>
+        <button onclick="addRepetitionEnd()" class="editor_button">:||</button>
         <button onclick="addFlat()" class="editor_button">&flat;</button>
     </div>
     <textarea wrap="soft" oninput="onInputFnc(this)" class="editor" style="transform: translate(-47.5vw)" name="body" form="input_form" id="song" required><?php echo (isset($song_contents_body))?$song_contents_body:'';?></textarea>
@@ -347,11 +351,11 @@ elseif ($_SERVER['REQUEST_METHOD'] == 'GET') {
                 selection.modify('move', 'forward', 'character')
             }
             function addRepetitionStart() {
-                let text = '&#x1d106;';
+                let text = '||:';
                 insertAtCursor(text);
             }
             function addRepetitionEnd() {
-                let text = '&#x1d107;';
+                let text = ':||';
                 insertAtCursor(text);
             }
             function addFlat() {

@@ -2,7 +2,6 @@
   "require": {
     "spatie/yaml-front-matter": "2.0.5",
     "skautis/skautis": "2.1.*",
-    "ext-json": "*",
-    "mpdf/mpdf": "8.0.5"
+    "ext-json": "*"
   }
 }
