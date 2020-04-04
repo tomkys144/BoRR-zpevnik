@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 require __DIR__ . '/vendor/autoload.php';
-require  __DIR__ . '/data/libs/TCPDF/tcpdf.php';
 
 function str_lreplace($search, $replace, $subject)
 {
@@ -49,23 +48,22 @@ function createPdfSong($songName)
     $song = $object->body();
     $song = str_replace("<wrapper><chord>", '', $song);
     $song = str_replace('</chord></wrapper>', '', $song);
-    $song = str_replace("<br>
-<br>", '<br>', $song);
+    $song = str_replace("<br>" . PHP_EOL . "<br>", '<br>', $song);
     $song = str_replace('&#x1d106;', '||:', $song);
     $song = str_replace('𝄆', '||:', $song);
     $song = str_replace('&#x1d107;', ':||', $song);
     $song = str_replace('𝄇', ':||', $song);
     $lineNo = substr_count($song, '<br>') + 1;
     if ($lineNo <= 20) {
-        $pdf->AddPage();
-        $pdf->setColumnsArray([['w'=>80, 's'=>2, 'y'=>0], ['w'=>137, 's'=>2, 'y'=>0], ['w'=>80, 's'=>2, 'y'=>0]]);
-
-        $verseNos = '';
-        $songText = '';
+        $verseNos = [];
+        $songText = [];
         $songHeader = '';
 
-        $songHeader .= "<h1>" . $object->matter('title') . "</h1>\n";
+        $songHeader .= "<h1>" . $object->matter('title') . "</h1>" . PHP_EOL;
         $songHeader .= "<h2>" . $object->matter('author') . "</h2>";
+        if ($object->matter('capo') !== null) {
+            $songHeader .= PHP_EOL . "<p>Capo " . $object->matter('capo') . "</p>";
+        }
 
         $numberVerses = substr_count($song, '<verse');
 
@@ -75,22 +73,16 @@ function createPdfSong($songName)
         for ($x=1; $x < $numberVerses; $x++) {
             $verseStart = strpos($song, '<verse number="', $verseOffset);
             $verseEnd = strpos($song, '<verse number="', 15 + $verseStart);
-            $verseLength = $verseEnd - $verseStart;
-            $verse = substr($song, $verseStart, $verseLength - 1);
+            $verseLength = $verseEnd - $verseStart -1;
+            $verse = substr($song, $verseStart, $verseLength);
 
-            $verseOffset = $verseOffset+$verseLength + ($verseStart - $verseOffset);
+            $verseOffset = $verseEnd;
 
             $verseNoEnd = strpos($verse, '"></verse>');
             $verseNoLength = $verseNoEnd - 15;
             $verseNo = substr($verse, 15, $verseNoLength);
 
-            $numLines = substr_count($verse, '<br>');
-
-            $verseNos .= '<p>' . $verseNo;
-            for ($y=1; $y < $numLines; $y++) {
-                $verseNos .= '<br />';
-            }
-            $verseNos .= '</p>';
+            $verseNos[]=$verseNo;
         }
         //Last verse
         $verseStart = strpos($song, '<verse', $verseOffset);
@@ -100,23 +92,16 @@ function createPdfSong($songName)
         $verseNoLength = $verseNoEnd - 15;
         $verseNo = substr($verse, 15, $verseNoLength);
 
-        $numLines = substr_count($verse, '<br>');
-
-        $verseNos .= '<p>' . $verseNo;
-        for ($y=1; $y < $numLines; $y++) {
-            $verseNos .= '<br />';
-        }
-        $verseNos .= '</p>';
+        $verseNos[] = $verseNo;
 
         $verseOffset = 0;
 
         //From first to last but one verses
         for ($x=1; $x < $numberVerses; $x++) {
             $verseStart = strpos($song, '</verse>', $verseOffset)+8;
-            $verseEnd = strpos($song, '<verse', $verseOffset);
+            $verseEnd = strpos($song, '<verse', $verseStart);
             $verseLength = $verseEnd - $verseStart;
             $verse = substr($song, $verseStart, $verseLength-1);
-            print $verse;
 
             $verseOffset = $verseLength + $verseOffset + ($verseStart - $verseOffset);
 
@@ -124,7 +109,7 @@ function createPdfSong($songName)
             $verse = str_replace('<br>', '<br />', $verse);
             $verse = '<p>' . $verse;
 
-            $songText .= $verse;
+            $songText[] = $verse;
         }
         //Last verse
         $verseStart = strpos($song, '"></verse>', $verseOffset)+10;
@@ -133,19 +118,28 @@ function createPdfSong($songName)
         $verse = str_replace('<br>', '<br />', $verse);
         $verse = '<p>' . $verse . '</p>';
 
-        $songText .= $verse;
+        $songText[] = $verse;
 
         //write the song to PDF
-        //$pdf->SetY(40, false, true);
-        //$pdf->WriteHTML($verseNos, false, false, true, false, 'R');
-        //$pdf->selectColumn($pdf->getColumn()+1);
-        //$pdf->WriteHTML($songHeader, false, false, true, false, 'C');
-        //$pdf->SetY(40, false, true);
-        //$pdf->WriteHTML($songText, false, false, true, false, 'L');
+        $pdf->AddPage();
+        $pdf->setColumnsArray([['w'=>80, 's'=>2, 'y'=>0], ['w'=>137, 's'=>2, 'y'=>0], ['w'=>80, 's'=>2, 'y'=>0]]);
+        $pdf->selectColumn($pdf->getColumn() + 1);
+        $pdf->WriteHTML($songHeader, false, false, true, false, 'C');
+        $pdf->selectColumn($pdf->getColumn() - 1);
+        $pdf->SetY(40, false, true);
+        for ($x=0; $x < $numberVerses; $x++) {
+            $pdf->WriteHTML($verseNos[$x], false, false, true, false, 'R');
+            $y = $pdf->GetY();
+            $pdf->selectColumn($pdf->getColumn() + 1);
+            $pdf->SetY($y, false, true);
+            $pdf->WriteHTML($songText[$x], false, false, true, false, 'L');
+            $y = $pdf->GetY()+2;
+            $pdf->selectColumn($pdf->getColumn() - 1);
+            $pdf->SetY($y, false, true);
+        }
     }
-    //$pdf->Output('test.pdf', 'I');
+    $pdf->Output('test.pdf', 'I');
+
 }
 
 createPdfSong('Test');
-
-//<p>blemst<br />blemst<br />blemst</p>
