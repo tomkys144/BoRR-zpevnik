@@ -163,16 +163,25 @@ function createPdfSong($songName)
                 $chordEnd = strpos($songText[$n], '</chord>', $chordStart);
                 if (line_contains(substr($songText[$n], $chordOffset, $chordStart-$chordOffset), '<br />')) {
                     $break = strpos($songText[$n], '<br />', $chordOffset)+6;
-                    $pdf->WriteHTML(substr($songText[$n], $chordOffset, $break-$chordOffset), false, false, true, false, 'L');
-                    $pdf->SetY($pdf->GetY()+5, false, true);
-                    $pdf->WriteHTML(substr($songText[$n], $break, $chordStart-$break), false, false, true, false, 'L');
+                    $pdf->WriteHTMLCell(
+                        $pdf->GetStringWidth(substr($songText[$n], $chordOffset, $break-$chordOffset)), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $chordOffset, $break-$chordOffset)), substr($songText[$n], $chordOffset, $break-$chordOffset)),
+                        $pdf->GetX(), $pdf->GetY(), substr($songText[$n], $chordOffset, $break-$chordOffset), 0, 0, false, true, 'L', false
+                    );
+                    $pdf->WriteHTMLCell($pdf->GetStringWidth(substr($songText[$n], $break, $chordStart-$break)), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $break, $chordStart-$break)), substr($songText[$n], $break, $chordStart-$break)),
+                        $pdf->GetX(), $pdf->GetY()+5, substr($songText[$n], $break, $chordStart-$break), 0, 0, false, true, 'L', false
+                    );
                 } else {
-                    $pdf->WriteHTML(substr($songText[$n], $chordOffset, $chordStart - $chordOffset), false, false, true, false, 'L');
+                    $pdf->WriteHTMLCell($pdf->GetStringWidth(substr($songText[$n], $chordOffset, $chordStart - $chordOffset)), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $chordOffset, $chordStart - $chordOffset)), substr($songText[$n], $chordOffset, $chordStart - $chordOffset)),
+                        $pdf->GetX(), $pdf->GetY(), substr($songText[$n], $chordOffset, $chordStart - $chordOffset), 0, 0, false, true, 'L', false
+                    );
                 }
                 $x = $pdf->GetX();
-                $pdf->SetXY($x, $pdf->GetY()-4.7,  true);
-                $pdf->WriteHTML(substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7), false, false, true, false, 'L');
-                $pdf->SetXY($x, $pdf->GetY()+4.7, true);
+                $y = $pdf->GetY();
+                $pdf->WriteHTMLCell(
+                    $pdf->GetStringWidth(substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7)), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7)), substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7)), $x, $y-4.7, substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7),
+                    0, 0, false, true, 'L', false
+                );
+                $pdf->WriteHTMLCell(0.1, 0, $x, $y, '', 0, 0, false, true, 'L', false);
                 $chordOffset=$chordEnd+8;
             }
             $pdf->WriteHTML(substr($songText[$n], $chordOffset), false, false, true, false, 'L');
