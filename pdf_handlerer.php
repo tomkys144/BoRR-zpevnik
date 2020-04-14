@@ -65,8 +65,8 @@ function createPdfSong($songName)
     $OpenSansBold = TCPDF_FONTS::addTTFfont(__DIR__ . '/data/font/OpenSans/OpenSans-Bold.ttf', 'TrueTypeUnicode', '', 32);
 
     $song = $object->body();
-    $song = str_replace("<wrapper><chord>", '<chord><b>', $song);
-    $song = str_replace('</chord></wrapper>', '</b></chord>', $song);
+    $song = str_replace("<wrapper><chord>", '<chord>', $song);
+    $song = str_replace('</chord></wrapper>', '</chord>', $song);
     $song = str_replace("<br>" . PHP_EOL . "<br>", '<br>', $song);
     $song = str_replace('&#x1d106;', '||:', $song);
     $song = str_replace('𝄆', '||:', $song);
@@ -163,12 +163,16 @@ function createPdfSong($songName)
                 $chordEnd = strpos($songText[$n], '</chord>', $chordStart);
                 if (line_contains(substr($songText[$n], $chordOffset, $chordStart-$chordOffset), '<br />')) {
                     $break = strpos($songText[$n], '<br />', $chordOffset)+6;
+                    $partOne = str_replace(' ', '&nbsp;', substr($songText[$n], $chordOffset, $break-$chordOffset));
+                    $partTwo = str_replace(' ', '&nbsp;', substr($songText[$n], $break, $chordStart-$break));
+                    print '<p>string: '.$partOne.'<br>';
+                    print 'simple: '.$pdf->GetStringWidth($partOne).'<br>';
+                    print 'full: '.$pdf->GetStringWidth($partOne, $OpenSans, '', 12, false).'</p><hr>';
                     $pdf->WriteHTMLCell(
-                        $pdf->GetStringWidth(substr($songText[$n], $chordOffset, $break-$chordOffset)), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $chordOffset, $break-$chordOffset)), substr($songText[$n], $chordOffset, $break-$chordOffset)),
-                        $pdf->GetX(), $pdf->GetY(), substr($songText[$n], $chordOffset, $break-$chordOffset), 0, 0, false, true, 'L', false
+                        $pdf->GetStringWidth($partOne), $pdf->getStringHeight($pdf->GetStringWidth($partOne), $partOne), $pdf->GetX(), $pdf->GetY(), $partOne, 0, 0, false, true, 'L', false
                     );
-                    $pdf->WriteHTMLCell($pdf->GetStringWidth(substr($songText[$n], $break, $chordStart-$break)), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $break, $chordStart-$break)), substr($songText[$n], $break, $chordStart-$break)),
-                        $pdf->GetX(), $pdf->GetY()+5, substr($songText[$n], $break, $chordStart-$break), 0, 0, false, true, 'L', false
+                    $pdf->WriteHTMLCell(
+                        $pdf->GetStringWidth($partTwo), $pdf->getStringHeight($pdf->GetStringWidth($partTwo), $partTwo), $pdf->GetX(), $pdf->GetY()+5, $partTwo, 0, 0, false, true, 'L', false
                     );
                 } else {
                     $pdf->WriteHTMLCell($pdf->GetStringWidth(substr($songText[$n], $chordOffset, $chordStart - $chordOffset)), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $chordOffset, $chordStart - $chordOffset)), substr($songText[$n], $chordOffset, $chordStart - $chordOffset)),
@@ -177,10 +181,12 @@ function createPdfSong($songName)
                 }
                 $x = $pdf->GetX();
                 $y = $pdf->GetY();
+                $pdf->SetFont($OpenSansBold, 'B', 12);
                 $pdf->WriteHTMLCell(
-                    $pdf->GetStringWidth(substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7)), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7)), substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7)), $x, $y-4.7, substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7),
+                    $pdf->GetStringWidth(substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7), '', 'B'), $pdf->getStringHeight($pdf->GetStringWidth(substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7), '', 'B'), substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7)), $x, $y-4.7, substr($songText[$n], $chordStart+7, $chordEnd-$chordStart-7),
                     0, 0, false, true, 'L', false
                 );
+                $pdf->SetFont($OpenSans, '', 12);
                 $pdf->WriteHTMLCell(0.1, 0, $x, $y, '', 0, 0, false, true, 'L', false);
                 $chordOffset=$chordEnd+8;
             }
@@ -197,7 +203,7 @@ function createPdfSong($songName)
             $pdf->SetY($y, false, true);
         }
     }
-    $pdf->Output($name . '.pdf', 'I');
+    //$pdf->Output($name . '.pdf', 'I');
 
 }
 
