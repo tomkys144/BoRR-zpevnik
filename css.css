@@ -4,6 +4,7 @@ body {
     background-repeat: no-repeat;
     background-size: 8em;
     background-position: right top;
+    font-family: 'raleway', sans-serif;
 }
 
 h1 {
@@ -344,12 +345,12 @@ button.editor{
     position: absolute;
     background-color: transparent;
     min-widthwidth: 60px;
-    z-index: 1;
+    z-index: 2;
     width: max-content;
 }
 
 .icon_user-included {
-    background-color: transparent;
+    background-color: whitesmoke;
     border: none;
     font-size: 1em
 }
@@ -408,3 +409,49 @@ button.editor{
     mix-blend-mode: difference;
     overflow: visible;
 }
+
+.icon_menu-btn {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    top: 0;
+    background-color: transparent;
+    border: none;
+    background-image: url("data/imgs/menu.svg");
+    background-position: center;
+    background-size: 40px;
+    background-repeat: no-repeat;
+}
+
+.icon_menu {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+}
+
+.icon_menu-content {
+    display: none;
+    position: absolute;
+    background-color: transparent;
+    min-widthwidth: 60px;
+    z-index: 1;
+    width: max-content;
+    left: 60px;
+    top: 0;
+
+}
+
+.icon_menu-included {
+    background-color: transparent;
+    border: none;
+    font-size: 1em
+}
+
+.icon_menu-included:hover {
+    text-decoration: underline;
+}
+
+.icon_menu:hover .icon_menu-content {display: block;}
+
+.icon_menu:hover .icon_menu-btn {background-color: lightgrey;}

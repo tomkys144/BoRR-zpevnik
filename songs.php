@@ -56,113 +56,118 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     })
 </script>
 <div style="position: absolute; top: 0; z-index: 1">
-    <a href="index.php"><button class="icon_home"></button></a>
-    <a href="list.php"><button class="icon_list"></button></a>
-    <a href="help.html"><button class="icon_help"></button></a>
-    <div class="icon_user">
-        <button class="icon_user-btn"></button>
-        <div class="icon_user-content">
+    <div class="icon_menu">
+        <button class="icon_menu-btn"></button>
+        <div class="icon_menu-content">
+            <a href="index.php"><button class="icon_home"></button></a>
+            <a href="list.php"><button class="icon_list"></button></a>
+            <a href="help.html"><button class="icon_help"></button></a>
+            <div class="icon_user">
+                <button class="icon_user-btn"></button>
+                <div class="icon_user-content">
+                    <?php
+                    $skautisUser = $skautis->getUser();
+                    if ($skautisUser->isLoggedIn(true) || $_SERVER["HTTP_HOST"] === 'localhost:8080') {
+                        $now = DateTime::createFromFormat("Y-m-d H:i:s.v", date("Y-m-d H:i:s.v"));
+                        $logoutTime=str_replace('T', ' ', $logoutTime['DateLogout']);
+                        $logout = new DateTime($logoutTime);
+                        $interval = date_diff($now, $logout);
+                        $time = $interval->i*60 + $interval->s;
+                        if ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
+                            $time = 1800;
+                        }
+                        echo (
+                            '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
+                            <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>');
+                        if (isAdmin() === true) {
+                            echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button></a><br>');
+                        }
+                        echo (
+                            '<button class="icon_user-included">Čas do odhlášení:</button>
+                            <div id="logoutTimer">
+                                <div id="logoutTimerBar">
+                                </div>
+                            </div>
+                            <script>
+                                function progress(timeleft, timetotal, $element) {
+                                    var progressBarWidth = timeleft * $element.width() / timetotal;
+                                    $element.find("div").animate({ width: progressBarWidth }, 500).html(Math.floor(timeleft/60) + ":"+ timeleft%60);
+                                    if(timeleft > 0) {
+                                        setTimeout(function() {
+                                            progress(timeleft - 1, timetotal, $element);
+                                        }, 1000);
+                                    } else if (timeleft <= 0) {
+                                        location.reload();
+                                    }
+                                };
+                            
+                                progress(' . $time . ', 1800, $("#logoutTimer"));
+                        </script >
+                            <form method="get" action="skautis_manager.php">
+                            <input type="hidden" name="logout" value="https://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
+                            <input class="icon_user-included" type="submit" value="Odhlásit se">
+                            </form>'
+                        );
+                    }
+                    else {
+                        $_SESSION['backlink'] = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
+                        echo (
+                            '<a href="' . $skautis->getLoginUrl("https://zpevnik-borr.skauting.cz/index.php") . '"><button class="icon_user-included" type="button">Přihlásit se</button></a>'
+                        );
+                    }
+                    ?>
+                </div>
+            </div>
             <?php
             $skautisUser = $skautis->getUser();
-            if ($skautisUser->isLoggedIn(true) || $_SERVER["HTTP_HOST"] === 'localhost:8080') {
-                $now = DateTime::createFromFormat("Y-m-d H:i:s.v", date("Y-m-d H:i:s.v"));
-                $logoutTime=str_replace('T', ' ', $logoutTime['DateLogout']);
-                $logout = new DateTime($logoutTime);
-                $interval = date_diff($now, $logout);
-                $time = $interval->i*60 + $interval->s;
-                if ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
-                    $time = 1800;
+            if ($skautisUser->isLoggedIn(true)) {
+                $data = $skautis->usr->UserDetail();
+                $data = json_decode(json_encode($data), true);
+                $person = $data['ID_Person'];
+                $favSongs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
+
+                if (!in_array($files[$song], array_keys($favSongs))) {
+                    echo(
+                        '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
+                                <input type="hidden" name="number" value="' . $song . '">
+                                <input type="hidden" name="action" value="add">
+                                <button type="submit" class="icon_fav_not"></button>
+                            </form>'
+                    );
+                } else {
+                    echo(
+                        '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
+                                <input type="hidden" name="number" value="' . $song . '">
+                                <input type="hidden" name="action" value="remove">
+                                <button type="submit" class="icon_fav"></button>
+                            </form>'
+                    );
                 }
-                echo (
-                    '<a href="favourite_songs.php"><button type="button" class="icon_user-included">Oblíbené</button></a><br>
-                    <a href="editor.php"><button type="button" class="icon_user-included">Editor</button></a><br>');
-                if (isAdmin() === true) {
-                    echo ('<a href="admin.php"><button type="button" class="icon_user-included">Admin rozhraní</button></a><br>');
+            } elseif ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
+                $person = 'test';
+                $favSongs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
+
+                if (!in_array($files[$song], array_keys($favSongs))) {
+                    echo(
+                        '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
+                                <input type="hidden" name="number" value="' . $song . '">
+                                <input type="hidden" name="action" value="add">
+                                <button type="submit" class="icon_fav_not"></button>
+                            </form>'
+                    );
+                } else {
+                    echo(
+                        '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
+                                <input type="hidden" name="number" value="' . $song . '">
+                                <input type="hidden" name="action" value="remove">
+                                <button type="submit" class="icon_fav"></button>
+                            </form>'
+                    );
                 }
-                echo (
-                    '<button class="icon_user-included">Čas do odhlášení:</button>
-                    <div id="logoutTimer">
-                        <div id="logoutTimerBar">
-                        </div>
-                    </div>
-                    <script>
-                        function progress(timeleft, timetotal, $element) {
-                            var progressBarWidth = timeleft * $element.width() / timetotal;
-                            $element.find("div").animate({ width: progressBarWidth }, 500).html(Math.floor(timeleft/60) + ":"+ timeleft%60);
-                            if(timeleft > 0) {
-                                setTimeout(function() {
-                                    progress(timeleft - 1, timetotal, $element);
-                                }, 1000);
-                            } else if (timeleft <= 0) {
-                                location.reload();
-                            }
-                        };
-                    
-                        progress(' . $time . ', 1800, $("#logoutTimer"));
-                </script >
-                    <form method="get" action="skautis_manager.php">
-                    <input type="hidden" name="logout" value="https://' . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"] . '">
-                    <input class="icon_user-included" type="submit" value="Odhlásit se">
-                    </form>'
-                );
-            }
-            else {
-                $_SESSION['backlink'] = 'https://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];
-                echo (
-                    '<a href="' . $skautis->getLoginUrl("https://zpevnik-borr.skauting.cz/index.php") . '"><button class="icon_user-included" type="button">Přihlásit se</button></a>'
-                );
             }
             ?>
         </div>
     </div>
-    <?php
-    $skautisUser = $skautis->getUser();
-    if ($skautisUser->isLoggedIn(true)) {
-        $data = $skautis->usr->UserDetail();
-        $data = json_decode(json_encode($data), true);
-        $person = $data['ID_Person'];
-        $favSongs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
-
-        if (!in_array($files[$song], array_keys($favSongs))) {
-            echo(
-                '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
-                        <input type="hidden" name="number" value="' . $song . '">
-                        <input type="hidden" name="action" value="add">
-                        <button type="submit" class="icon_fav_not"></button>
-                    </form>'
-            );
-        } else {
-            echo(
-                '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
-                        <input type="hidden" name="number" value="' . $song . '">
-                        <input type="hidden" name="action" value="remove">
-                        <button type="submit" class="icon_fav"></button>
-                    </form>'
-            );
-        }
-    } elseif ($_SERVER["HTTP_HOST"] === 'localhost:8080') {
-        $person = 'test';
-        $favSongs = json_decode(file_get_contents(__DIR__ . '/data/usrs/' . $person . '.json'), true);
-
-        if (!in_array($files[$song], array_keys($favSongs))) {
-            echo(
-                '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
-                        <input type="hidden" name="number" value="' . $song . '">
-                        <input type="hidden" name="action" value="add">
-                        <button type="submit" class="icon_fav_not"></button>
-                    </form>'
-            );
-        } else {
-            echo(
-                '<form action="favourite_songs.php" method="post" style="display: inline-block; width: max-content">
-                        <input type="hidden" name="number" value="' . $song . '">
-                        <input type="hidden" name="action" value="remove">
-                        <button type="submit" class="icon_fav"></button>
-                    </form>'
-            );
-        }
-    }
-    ?>
 </div>
 <div style="position: absolute; width: 64vw; left: 18vw;top: 0; height: 100%">
     <h1><?php echo($object->matter('title')) ?></h1>
