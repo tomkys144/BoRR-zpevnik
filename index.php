@@ -59,7 +59,7 @@ if ($skautisUser->isLoggedIn(true)){
     </a>
 </div>
 <div style="position: fixed; bottom: 0; text-align: center; width: 100%">
-    <p style="font-size: 1em">verze 0.6.0.</p>
+    <p style="font-size: 1em">verze 0.6.1.</p>
     <!--- Tento zpěvník byl psán s myšlenkou na Valču a nyní je jí i věnován. --->
     <a href="https://github.com/tomkys144/BoRR-zpevnik">
         <button style="background-color: transparent; border: none; font-size: 1em">napsal Tomáš Kysela - Kyslík

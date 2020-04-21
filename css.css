@@ -455,3 +455,13 @@ button.editor{
 .icon_menu:hover .icon_menu-content {display: block;}
 
 .icon_menu:hover .icon_menu-btn {background-color: lightgrey;}
+
+#help {
+    background: transparent;
+    border: none;
+    font-size: 1em;
+}
+
+#help:hover {
+    text-decoration: underline;
+}

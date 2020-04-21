@@ -162,7 +162,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if (!file_exists(__DIR__ . '/data/backup/' . $backupDir)) {
                 mkdir(__DIR__ . '/data/backup/' . $backupDir);
             }
-            $file = fopen(__DIR__ . '/data/backup/' . $backupDir . '/' . date('Y-m-d_H-i-s'), 'w');
+            $file = fopen(__DIR__ . '/data/backup/' . $backupDir . '/' . date('Y-m-d_H-i-s') . '.md', 'w');
             fwrite($file, $fileContents);
             fclose($file);
         } elseif (isset($_REQUEST['deleteSong'])) {
@@ -170,13 +170,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             if (!file_exists(__DIR__ . '/data/backup/' . $backupDir)) {
                 mkdir(__DIR__ . '/data/backup/' . $backupDir);
             }
-            $file = fopen(__DIR__ . '/data/backup/' . $backupDir . '/' . date('Y-m-d_H-i-s'), 'w');
+            $file = fopen(__DIR__ . '/data/backup/' . $backupDir . '/' . date('Y-m-d_H-i-s') . '.md', 'w');
             fwrite($file, $fileContents);
             fclose($file);
             unlink(__DIR__ . '/data/songs/' . $_REQUEST['songFile']);
         } elseif (isset($_REQUEST['rollback'])) {
             $oldFileContents = file_get_contents(__DIR__ . '/data/songs/' . $_REQUEST['songFile']);
-            $newBackup = fopen(__DIR__ . '/data/backup/' . $backupDir . '/' . date('Y-m-d_H-i-s'), 'w');
+            $newBackup = fopen(__DIR__ . '/data/backup/' . $backupDir . '/' . date('Y-m-d_H-i-s') . '.md', 'w');
             fwrite($newBackup, $oldFileContents);
             fclose($newBackup);
 
