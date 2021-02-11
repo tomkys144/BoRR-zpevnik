@@ -1,0 +1,43 @@
+.list button{
+    background: transparent;
+    border: none;
+    font-size: 1.25em;
+}
+
+.list button:hover {
+    text-decoration: underline;
+}
+
+#songs.list {
+    width: calc(50% - 2px);
+    text-align: right;
+    margin: 0;
+    float: left;
+}
+
+#authors.list {
+    width: calc(50% - 2px);
+    text-align: left;
+    margin: 0px;
+    border-left: 4px solid var(--primary_inv);
+    float: right;
+}
+
+#main.list {
+    width: 100%;
+    margin: 0;
+}
+
+#authors.list h2 {
+    text-align: left;
+    margin: 0;
+}
+
+#songs.list h2 {
+    text-align: right;
+    margin: 0;
+}
+
+#main.list div {
+    border-bottom: 4px solid var(--primary_inv);
+}

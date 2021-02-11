@@ -1,0 +1,28 @@
+{% extends '_page.twig' %}
+
+{% block head %}
+    {{ parent() }}
+{% endblock %}
+{% block header %}
+    <h1>Rejstřík</h1>
+{% endblock %}
+{% block content %}
+    <div class="list", id="main">
+        <div id="songs" class="list">
+            <a href="?sortBy=SongName"><button class="list" id="main" type="button"><h2>Jméno</h2></button></a><br>
+        </div>
+        <div id="authors" class="list">
+            <a href="?sortBy=SongAuthor"><button class="list" id="main" type="button"><h2>Autor</h2></button></a><br>
+        </div>
+    </div>
+    <div id="songs" class="list">
+        {% for song in songs %}
+            <a href="/song?id={{ song.SongID }}"><button class="list" type="button">{{ song.SongName }}</button></a><br>
+        {% endfor %}
+    </div>
+    <div id="authors" class="list">
+        {% for song in songs %}
+            <a href="/song?id={{ song.SongID }}"><button class="list" type="button">{{ song.SongAuthor }}</button></a><br>
+        {% endfor %}
+    </div>
+{% endblock %}
