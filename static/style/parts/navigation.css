@@ -1,188 +1,27 @@
-.icon_home {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/home.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
+#navigation ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--primary_inv);
 }
 
-.icon_help {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/help.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
+#navigation li {
+    float: left;
 }
 
-.icon_list {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/list.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
-}
-
-.icon_music {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/music.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
-}
-
-.icon_pdf {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/pdf.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
-}
-
-.icon_left {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    bottom: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/left.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
-}
-
-.icon_right {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/right.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
-}
-
-.icon_user-btn {
-    width: 60px;
-    height: 60px;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/user.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
-}
-
-.icon_user {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-}
-
-.icon_user-included {
-    background-color: whitesmoke;
-    border: none;
-    font-size: 1em
-}
-
-.icon_user-included:hover {
-    text-decoration: underline;
-}
-
-.icon_user:hover .icon_user-content {
+#navigation li a {
     display: block;
+    color: var(--primary);
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
 }
 
-.icon_user:hover .icon_user-btn {
-    background-color: lightgrey;
+#navigation li a:hover {
+    background-color: #252525;
 }
 
-.icon_user-content {
-    display: none;
-    position: absolute;
-    background-color: transparent;
-    min-widthwidth: 60px;
-    z-index: 2;
-    width: max-content;
-}
-
-.icon_fav {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/fav.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
-}
-
-.icon_fav_not {
-    position: relative;
-    display: inline-block;
-    width: 60px;
-    height: 60px;
-    top: 0;
-    background-color: transparent;
-    border: none;
-    background-image: url("../../imgs/fav_not.svg");
-    background-position: center;
-    background-size: 40px;
-    background-repeat: no-repeat;
-}
-
-#logoutTimer {
-    width: 141px;
-    height: calc(1em + 2px);
-    background-color: transparent;
-    border: 1px solid gray;
-}
-
-#logoutTimerBar {
-    width: 141px;
-    height: calc(1em + 2px);
-    text-align: right;
-    font-size: 1em;
-    line-height: calc(1em + 2px);
-    background-color: gray;
-    color: white;
-    mix-blend-mode: difference;
-    overflow: visible;
+#navigation li a:focus {
+    background-color: var(--contrast);
 }

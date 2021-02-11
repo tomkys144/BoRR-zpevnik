@@ -4,11 +4,6 @@
     color: var(--primary);
 }
 
-#navigation img {
-    width: 3em;
-    margin: .25em;
-}
-
 #header {
     grid-area: header;
 }

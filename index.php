@@ -89,5 +89,9 @@ $app->get('/song', function (Request $request, Response $response, $args) {
     }
 });
 
+$app->get('/about', function (Request $request, Response $response) {
+    return $this->get('view')->render($response, 'about.twig');
+});
+
 
 $app->run();

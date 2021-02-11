@@ -1,8 +1,5 @@
 {% extends '_page.twig' %}
 
-{% block head %}
-    {{ parent() }}
-{% endblock %}
 {% block header %}
     <h1>{{ name }}</h1>
     <h2>{{ author }}</h2>
@@ -10,6 +7,7 @@
         <span>Capo: {{ capo }}</span>
     {% endif %}
 {% endblock %}
+
 {% block content %}
     <span>{{ song | striptags('<br><b><i><wrapper><chord><verse>') | raw }}</span>
     {% if made_gender == 2 %}
