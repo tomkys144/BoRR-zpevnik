@@ -2,7 +2,7 @@
 session_start();
 require __DIR__ . '/vendor/autoload.php';
 
-$applicationID = "6116cad6-ddbc-4380-807a-d9525cc35b95";
+$applicationID = "";
 $isTestMode = false;
 $skautis = \Skautis\Skautis::getInstance($applicationID, $isTestMode);
 
