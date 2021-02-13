@@ -6,7 +6,11 @@ namespace App\Services;
 
 class SongService
 {
-    public function getSongList($sortBy)
+    /**
+     * @param string $sortBy
+     * @return mixed
+     */
+    public function getSongList(string $sortBy): mixed
     {
         $data = json_decode(file_get_contents(dirname(__DIR__) . '/../data/songs.json'), true);
         if ($sortBy == null) {
@@ -31,7 +35,12 @@ class SongService
         return $data;
     }
 
-    public function getAdjacentSongs($currentID) {
+    /**
+     * @param int $currentID
+     * @return string[]
+     */
+    public function getAdjacentSongs(int $currentID): array
+    {
         $songs = $this->getSongList('SongName');
         foreach ($songs as $position => $song){
             if ($song['SongID'] == $currentID) {
@@ -47,7 +56,12 @@ class SongService
         }
     }
 
-    public function getSong($ID) {
+    /**
+     * @param int $ID
+     * @return array|null
+     */
+    public function getSong(int $ID): ?array
+    {
         $DS = new DatabaseService();
         $data = $DS->getSong($ID);
         if (str_contains($data['MadeBy'], '{male}')){

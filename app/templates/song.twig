@@ -9,25 +9,25 @@
 {% endblock %}
 
 {% block content %}
-    <span>{{ song | striptags('<br><b><i><wrapper><chord><verse>') | raw }}</span>
+    <p>{{ song | striptags('<br><b><i><wrapper><chord><verse>') | raw }}</p>
     {% if made_gender == 2 %}
-        <span>Zpracoval: {{ made }}</span>
+        <p>Zpracoval: {{ made }}</p>
     {% elseif made_gender == 1 %}
-        <span>Zpracovala: {{ made }}</span>
-    {% else %}
-        <span>Zpracoval(a): {{ made }}</span>
+        <p>Zpracovala: {{ made }}</p>
+    {% else %}p
+        <p>Zpracoval(a): {{ made }}</p>
     {% endif %}
     {% if revision is not null %}
         {% if revision_gender == 1 %}
-            <span>Upravila: {{ revision }}</span>
+            <p>Upravila: {{ revision }}</p>
         {% elseif revision_gender == 2 %}
-            <span>Upravil: {{ revision }}</span>
+            <p>Upravil: {{ revision }}</p>
         {% elseif revision_gender == 3 %}
-            <span>Upravily: {{ revision }}</span>
+            <p>Upravily: {{ revision }}</p>
         {% elseif revision_gender == 4 %}
-            <span>Upravili: {{ revision }}</span>
+            <p>Upravili: {{ revision }}</p>
         {% else %}
-            <span>Upravil(a): {{ revision }}</span>
+            <p>Upravil(a): {{ revision }}</p>
         {% endif %}
     {% endif %}
 {% endblock %}

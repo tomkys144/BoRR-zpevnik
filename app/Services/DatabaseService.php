@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+
 use mysqli;
+
 
 class DatabaseService
 {
@@ -25,44 +27,69 @@ class DatabaseService
         }
     }
 
-    /**
-     *
-     */
     public function __destruct()
     {
         $this->databaseConnection->close();
     }
 
-    /**
-     *
-     */
     public function sync(){
-        $this->tableExists();
+        $this->tableExist();
         $query = "SELECT SongID, SongName, SongAuthor FROM Songs;";
         $result = $this->databaseConnection->query($query);
         $data = $result->fetch_all(MYSQLI_ASSOC);
         file_put_contents(dirname(__DIR__) . '/../data/songs.json', json_encode($data));
     }
 
-    private function tableExists()
+    /**
+     * @param string $tableName
+     * @return bool
+     */
+    private function tableExist(string $tableName): bool
     {
-        $query =
-            "CREATE TABLE IF NOT EXISTS Songs (
-                SongID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-                SongName VARCHAR(255),
-                SongAuthor VARCHAR(255),
-                Song MEDIUMTEXT,
-                Capo INT,
-                MadeBy VARCHAR(255),
-                Revision JSON
-            );
-        ";
+        if ($tableName === 'Songs') {
+                $query =
+                    "CREATE TABLE IF NOT EXISTS Songs (
+                    SongID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+                    SongName VARCHAR(255),
+                    SongAuthor VARCHAR(255),
+                    Song MEDIUMTEXT,
+                    Capo INT,
+                    MadeBy VARCHAR(255),
+                    Revision JSON
+                );
+            ";
+        } elseif ($tableName === 'Persons') {
+            $query =
+                "CREATE TABLE IF NOT EXISTS Persons (
+                    PersonID INT,
+                    FavouriteSongs JSON,
+                    IsAdmin INT
+                );
+            ";
+        } else {
+            return false;
+        }
         $this->databaseConnection->query($query);
     }
 
-    public function getSong($SongID)
+    /**
+     * @param int $SongID
+     * @return array|null
+     */
+    public function getSong(int $SongID): ?array
     {
         $query = "SELECT * FROM Songs WHERE SongID = $SongID;";
+        $result = $this->databaseConnection->query($query);
+        return $result->fetch_assoc();
+    }
+
+    /**
+     * @param int $PersonID
+     * @return array|null
+     */
+    public function getPerson(int $PersonID): ?array
+    {
+        $query = "SELECT * FROM Persons WHERE PersonID = $PersonID;";
         $result = $this->databaseConnection->query($query);
         return $result->fetch_assoc();
     }
