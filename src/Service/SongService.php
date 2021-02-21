@@ -40,10 +40,9 @@ class SongService
 
     /**
      * @param array $data
-     * @param ValidatorInterface $validator
-     * @return ConstraintViolationListInterface|bool\
+     * @return bool
      */
-    public function createSong(array $data, ValidatorInterface $validator): ConstraintViolationListInterface|bool
+    public function createSong( array $data): bool
     {
         $song = new Song();
         $song->setName($data['Name']);
@@ -55,12 +54,6 @@ class SongService
         }
         if (isset($data['Revision'])) {
             $song->setRevision($data['Revision']);
-        }
-
-        $errors = $validator->validate($song);
-
-        if (count($errors) > 0) {
-            return $errors;
         }
 
         $this->entityManager->persist($song);
@@ -200,8 +193,9 @@ class SongService
         $songs = $this->getList('name');
 
         foreach ($songs as $position => $song) {
-            if ($song['id'] === $id) {
+            if ($song['id'] == $id) {
                 $currentPos = $position;
+                break;
             }
         }
 
@@ -233,7 +227,7 @@ class SongService
             $result['made'] = $made;
         }
 
-        $rev = json_decode($revision, true);
+        $rev = $revision;
         if ($rev != null && sizeof($rev) != 1) {
             $start = $rev[0];
             $onlyFemales = true;

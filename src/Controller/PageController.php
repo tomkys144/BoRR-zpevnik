@@ -5,11 +5,10 @@ namespace App\Controller;
 
 
 use App\Service\SongService;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 
 class PageController extends AbstractController
@@ -21,11 +20,9 @@ class PageController extends AbstractController
         ]);
     }
 
-    public function list(Request $request): Response
+    public function list(Request $request, SongService $songService): Response
     {
         $sortBy = $request->query->get('sortBy');
-
-        $songService = new SongService();
 
         $list = $songService->getList($sortBy);
         $first = $songService->getFirst();
@@ -37,34 +34,45 @@ class PageController extends AbstractController
         ]);
     }
 
-    public function song($id): Response
+    public function song($id, SongService $songService): Response
     {
-        $songService = new SongService();
-
         $song = $songService->getSong($id);
 
         $adjacent = $songService->getAdjacent($id);
 
         $song_params = $songService->getGenders($song->getMadeBy(), $song->getRevision());
 
-        return $this->render('song.html.twig', [
-            'left' => $adjacent['prev'],
-            'right' => $adjacent['right'],
-            'name' => $song->getName(),
-            'author' => $song->getAuthor(),
-            'body' => $song->getBody(),
-            'capo' => $song->getCapo(),
-            'made' => $song_params['made'],
-            'revision' => $song_params['revision'],
-            'made_gender' => $song_params['madeGender'],
-            'revision_gender' => $song_params['revisionGender']
-        ]);
+        if (isset($song_params['next'])) {
+            return $this->render('song.html.twig', [
+                'left' => $adjacent['prev'],
+                'right' => $adjacent['next'],
+                'name' => $song->getName(),
+                'author' => $song->getAuthor(),
+                'body' => $song->getBody(),
+                'capo' => $song->getCapo(),
+                'made' => $song_params['made'],
+                'revision' => $song_params['revision'],
+                'made_gender' => $song_params['madeGender'],
+                'revision_gender' => $song_params['revisionGender']
+            ]);
+        } else {
+            return $this->render('song.html.twig', [
+                'left' => $adjacent['prev'],
+                'name' => $song->getName(),
+                'author' => $song->getAuthor(),
+                'body' => $song->getBody(),
+                'capo' => $song->getCapo(),
+                'made' => $song_params['made'],
+                'revision' => $song_params['revision'],
+                'made_gender' => $song_params['madeGender'],
+                'revision_gender' => $song_params['revisionGender']
+            ]);
+        }
     }
 
-    public function songCreatorScript()
+    public function songCreatorScript(SongService $songService): Response
     {
         $files = scandir(dirname(__DIR__) . '/../local_data/songs/');
-        $songService = new SongService();
 
         foreach ($files as $file) {
             if ($file === '.' || $file === '..') {
@@ -81,10 +89,9 @@ class PageController extends AbstractController
             );
 
             $songService->createSong($data);
-
-            return new Response(
-                '<html><body>success</body></html>'
-            );
         }
+        return new Response(
+            '<html><body>success</body></html>'
+        );
     }
 }
