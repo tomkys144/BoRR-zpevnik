@@ -1,4 +1,4 @@
-{% extends '_page.twig' %}
+{% extends 'base.html.twig' %}
 
 {% block header %}
     <h1>{{ name }}</h1>
@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    {% include 'partials/song_body.tex.twig' %}
+    {% include 'partials/song_body.tex.twig' with vars %}
     {% if made_gender == 2 %}
         <p>Zpracoval: {{ made }}</p>
     {% elseif made_gender == 1 %}

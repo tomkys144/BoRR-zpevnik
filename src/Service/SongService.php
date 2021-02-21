@@ -53,6 +53,9 @@ class SongService
         if (isset($data['Capo'])) {
             $song->setCapo($data['Capo']);
         }
+        if (isset($data['Revision'])) {
+            $song->setRevision($data['Revision']);
+        }
 
         $errors = $validator->validate($song);
 
@@ -209,5 +212,70 @@ class SongService
         } else {
             return array('prev' => $songs[$currentPos - 1]['id'], 'next' => $songs[$currentPos + 1]['id']);
         }
+    }
+
+    public function getFirst()
+    {
+        $songs = $this->getList('name');
+        return $songs[0]['id'];
+    }
+
+    public function getGenders($madeBy, $revision )
+    {
+        $result= array();
+        if (str_contains($madeBy, '{male}')) {
+            $result['madeGender'] = '2';
+            $made = str_replace(' {male}', '', $madeBy);
+            $result['made'] = $made;
+        } elseif (str_contains($madeBy, '{female}')) {
+            $result['madeGender'] = '1';
+            $made = str_replace(' {female}', '', $madeBy);
+            $result['made'] = $made;
+        }
+
+        $rev = json_decode($revision, true);
+        if ($rev != null && sizeof($rev) != 1) {
+            $start = $rev[0];
+            $onlyFemales = true;
+            $makers = '';
+            foreach ($rev as $maker) {
+                if (str_contains($maker, '{male}')) {
+                    $onlyFemales = false;
+                }
+                if ($start !== $maker) {
+                    $maker = str_replace(' {female}', '', $maker);
+                    $maker = str_replace(' {male}', '', $maker);
+                    $makers .= ', ' . $maker;
+                } else {
+                    $maker = str_replace(' {female}', '', $maker);
+                    $maker = str_replace(' {male}', '', $maker);
+                    $makers .= $maker;
+                }
+            }
+            if ($onlyFemales) {
+                $result['revision'] = $makers;
+                $result['revisionGender'] = '3';
+            } else {
+                $result['revision'] = $makers;
+                $result['revisionGender'] = '4';
+            }
+        } elseif (($rev != null && sizeof($rev) == 1)) {
+            if (str_contains($rev[0], '{male}')) {
+                $text = str_replace(' {male}', '', $rev[0]);
+                $result['revision'] = $text;
+                $result['revisionGender'] = '2';
+            } elseif (strpos($rev[0], '{female}') !== false) {
+                $text = str_replace(' {female}', '', $rev[0]);
+                $result['revision'] = $text;
+                $result['revisionGender'] = '1';
+            } else {
+                $result['revision'] = $rev[0];
+            }
+        } else {
+            $result['revisionGender'] = null;
+            $result['revision'] = null;
+        }
+
+        return $result;
     }
 }

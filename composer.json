@@ -21,6 +21,7 @@
         "symfony/yaml": "4.4.*"
     },
     "require-dev": {
+        "spatie/yaml-front-matter": "^2.0",
         "symfony/debug-bundle": "^4.4",
         "symfony/maker-bundle": "^1.29",
         "symfony/monolog-bundle": "^3.0",

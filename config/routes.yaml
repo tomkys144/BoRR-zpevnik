@@ -7,3 +7,12 @@ list:
     path: /list
     controller: App\Controller\PageController:list
     methods: get
+
+song:
+    path: /song/{id}
+    controller: App\Controller\PageController:song
+    methods: get
+
+script:
+    path: /script
+    controller: App\Controller\PageController:songCreatorScript
