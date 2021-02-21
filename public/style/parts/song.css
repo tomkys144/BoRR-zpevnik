@@ -1,0 +1,47 @@
+wrapper {
+    display: inline-block;
+    position: relative;
+    margin-top: 4ex;
+}
+
+chord {
+    font-weight: bolder;
+    position: absolute;
+    bottom: 1.6ex;
+}
+
+verse {
+    font-weight: bolder;
+    position: relative;
+    margin-top: 3em;
+}
+
+verse::after {
+    content: attr(number);
+    font-weight: bolder;
+    transform: translateX(-120%);
+    position: absolute;
+    bottom: 0;
+    width: max-content;
+}
+
+#song_text {
+    font-size: 1.5em;
+    text-align: left;
+}
+
+.song_body {
+    width: max-content;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.capo {
+    font-weight: bold;
+    font-size: 1.5em;
+    width: 20vw;
+    position: absolute;
+    top: 1em;
+    left: 70vw;
+}

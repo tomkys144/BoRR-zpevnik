@@ -1,0 +1,13 @@
+{% autoescape 'latex' %}
+    \documentclass{article}
+
+    \newcommand{\chord}[2][l]{%
+      \makebox[0pt][#1]{\begin{tabular}[b]{@{}l@{}}#2\\\mbox{}\end{tabular}}}
+
+    \begin{document}
+
+
+    {{ song }}
+
+    \end{document}
+{% endautoescape %}

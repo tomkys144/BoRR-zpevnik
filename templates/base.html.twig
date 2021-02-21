@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        {% block head %}
+                <meta charset="UTF-32">
+                <title>BoRR zpěvník</title>
+                <link rel="icon" href="{{ asset('imgs/borr.png') }}">
+                <link rel="stylesheet" href="{{ asset('style/main.css') }}"/>
+        {% endblock %}
+        <script src="https://kit.fontawesome.com/a0e1808140.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<script>
+        document.addEventListener('keydown', (e) => {
+                switch (e.key) {
+                        {% if left is defined %}
+                        case 'ArrowLeft':
+                                document.getElementById('left').click();
+                                break;
+                        {% endif %}
+                        {% if right is defined %}
+                        case 'ArrowRight':
+                                document.getElementById('right').click();
+                                break;
+                        {% endif %}
+                        default:
+                                return;
+                }
+                e.preventDefault();
+        })
+</script>
+<div id="navigation">
+        {{ include('/partials/navigation.html.twig') }}
+</div>
+<div id="header">{% block header %}{% endblock %}</div>
+<div id="content">{% block content %}{% endblock %}</div>
+{% if left is defined %}
+        <div id="previous">
+                <a href="{{ left }}" id="left">
+                        <button id="left_button" type="button">&lt</button>
+                </a>
+        </div>
+{% endif %}
+{% if right is defined %}
+        <div id="next">
+                <a href="{{ right }}" id="right">
+                        <button id="right_button" type="button">&gt</button>
+                </a>
+        </div>
+{% endif %}
+<div id="footer">
+        <span>{{ include('/partials/footer.html.twig') }}</span>
+</div>
+</body>
+</html>

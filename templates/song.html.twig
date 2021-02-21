@@ -1,0 +1,33 @@
+{% extends '_page.twig' %}
+
+{% block header %}
+    <h1>{{ name }}</h1>
+    <h2>{{ author }}</h2>
+    {% if capo is not null %}
+        <span>Capo: {{ capo }}</span>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% include 'partials/song_body.tex.twig' %}
+    {% if made_gender == 2 %}
+        <p>Zpracoval: {{ made }}</p>
+    {% elseif made_gender == 1 %}
+        <p>Zpracovala: {{ made }}</p>
+    {% else %}p
+        <p>Zpracoval(a): {{ made }}</p>
+    {% endif %}
+    {% if revision is not null %}
+        {% if revision_gender == 1 %}
+            <p>Upravila: {{ revision }}</p>
+        {% elseif revision_gender == 2 %}
+            <p>Upravil: {{ revision }}</p>
+        {% elseif revision_gender == 3 %}
+            <p>Upravily: {{ revision }}</p>
+        {% elseif revision_gender == 4 %}
+            <p>Upravili: {{ revision }}</p>
+        {% else %}
+            <p>Upravil(a): {{ revision }}</p>
+        {% endif %}
+    {% endif %}
+{% endblock %}
