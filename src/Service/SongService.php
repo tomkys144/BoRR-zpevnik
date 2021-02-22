@@ -161,8 +161,9 @@ class SongService
         $list = $data['list'];
 
         foreach ($list as $key => $item) {
-            $name[$key] = $item['name'];
-            $author[$key] = $item['author'];
+            setlocale(LC_CTYPE, 'cs_CZ');
+            $name[$key] = iconv('utf-8', 'ascii//TRANSLIT', $item['name']);
+            $author[$key] = iconv('utf-8', 'ascii//TRANSLIT', $item['author']);
         }
 
         if ($sortBy === 'name') {

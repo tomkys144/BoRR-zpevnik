@@ -12,6 +12,12 @@
     grid-area: content;
 }
 
+#content p {
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+}
+
 #footer {
     grid-area: footer;
     text-align: center;

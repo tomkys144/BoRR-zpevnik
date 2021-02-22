@@ -14,9 +14,9 @@ class SongController extends AbstractController
      */
     private SongService $songService;
 
-    public function __construct()
+    public function __construct(SongService $songService)
     {
-        $this->songService = new SongService();
+        $this->songService = $songService;
     }
 
     public function list(Request $request): Response
@@ -43,13 +43,26 @@ class SongController extends AbstractController
 
         $body = $this->songService->songParser($song->getBody(), 'db', 'html');
 
-        if (isset($song_params['next'])) {
+        if ($adjacent['prev'] === -1 && isset($adjacent['next'])) {
+            return $this->render('song.html.twig', [
+                'left' => '/list',
+                'right' => $adjacent['next'],
+                'name' => $song->getName(),
+                'author' => $song->getAuthor(),
+                'body' => $body,
+                'capo' => $song->getCapo(),
+                'made' => $song_params['made'],
+                'revision' => $song_params['revision'],
+                'made_gender' => $song_params['madeGender'],
+                'revision_gender' => $song_params['revisionGender']
+            ]);
+        } elseif (isset($adjacent['next'])) {
             return $this->render('song.html.twig', [
                 'left' => $adjacent['prev'],
                 'right' => $adjacent['next'],
                 'name' => $song->getName(),
                 'author' => $song->getAuthor(),
-                'body' => $song->getBody(),
+                'body' => $body,
                 'capo' => $song->getCapo(),
                 'made' => $song_params['made'],
                 'revision' => $song_params['revision'],
@@ -61,7 +74,7 @@ class SongController extends AbstractController
                 'left' => $adjacent['prev'],
                 'name' => $song->getName(),
                 'author' => $song->getAuthor(),
-                'body' => $song->getBody(),
+                'body' => $body,
                 'capo' => $song->getCapo(),
                 'made' => $song_params['made'],
                 'revision' => $song_params['revision'],

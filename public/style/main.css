@@ -35,6 +35,10 @@ h2 {
     text-align: center;
 }
 
+h3 {
+    text-align: center;
+}
+
 button:focus {
     border: none;
     outline: none;

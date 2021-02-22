@@ -4,30 +4,32 @@
     <h1>{{ name }}</h1>
     <h2>{{ author }}</h2>
     {% if capo is not null %}
-        <span>Capo: {{ capo }}</span>
+        <h3>Capo: {{ capo }}</h3>
     {% endif %}
 {% endblock %}
 
 {% block content %}
-    {{ body | raw}}
+    <p id="content">
+        {{ body | raw}}
+    </p>
     {% if made_gender == 2 %}
-        <p>Zpracoval: {{ made }}</p>
+        <p style="margin-top: 2em; margin-bottom: 1em">Zpracoval: {{ made }}</p>
     {% elseif made_gender == 1 %}
-        <p>Zpracovala: {{ made }}</p>
+        <p style="margin-top: 2em; margin-bottom: 1em">Zpracovala: {{ made }}</p>
     {% else %}p
-        <p>Zpracoval(a): {{ made }}</p>
+        <p style="margin-top: 2em; margin-bottom: 1em">Zpracoval(a): {{ made }}</p>
     {% endif %}
     {% if revision is not null %}
         {% if revision_gender == 1 %}
-            <p>Upravila: {{ revision }}</p>
+            <p style="margin-top: 2em; margin-bottom: 1em">Upravila: {{ revision }}</p>
         {% elseif revision_gender == 2 %}
-            <p>Upravil: {{ revision }}</p>
+            <p style="margin-top: 2em; margin-bottom: 1em">Upravil: {{ revision }}</p>
         {% elseif revision_gender == 3 %}
-            <p>Upravily: {{ revision }}</p>
+            <p style="margin-top: 2em; margin-bottom: 1em">Upravily: {{ revision }}</p>
         {% elseif revision_gender == 4 %}
-            <p>Upravili: {{ revision }}</p>
+            <p style="margin-top: 2em; margin-bottom: 1em">Upravili: {{ revision }}</p>
         {% else %}
-            <p>Upravil(a): {{ revision }}</p>
+            <p style="margin-top: 2em; margin-bottom: 1em">Upravil(a): {{ revision }}</p>
         {% endif %}
     {% endif %}
 {% endblock %}
