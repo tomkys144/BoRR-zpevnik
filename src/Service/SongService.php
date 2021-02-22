@@ -7,8 +7,6 @@ namespace App\Service;
 use App\Entity\Song;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Validator\ConstraintViolationListInterface;
-use Symfony\Component\Validator\Validator\ValidatorInterface;
 use Symfony\Component\Yaml\Yaml;
 
 class SongService
@@ -271,5 +269,30 @@ class SongService
         }
 
         return $result;
+    }
+
+    /**
+     * @param string $song
+     * @param string $in possible: 'db', 'html'
+     * @param string $out possible: 'db', 'html'
+     * @return string
+     */
+    public function songParser(string $song, string $in, string $out): string
+    {
+        if ($in === 'html' && $out === 'db') {
+            $song = str_replace('<wrapper><chord>', '[!', $song);
+            $song = str_replace('</chord></wrapper>', '!]', $song);
+            $song = str_replace('<verse number="', '[@', $song);
+            $song = str_replace('"></verse>', '@]', $song);
+            $song = str_replace('<br>', '\n', $song);
+        } elseif ($in === 'db' && $out === 'html') {
+            $song = str_replace('[!', '<wrapper><chord>', $song);
+            $song = str_replace('!]', '</chord></wrapper>', $song);
+            $song = str_replace('[@', '<verse number="', $song);
+            $song = str_replace('@]', '"></verse>', $song);
+            $song = str_replace('\n', '<br>', $song);
+        }
+
+        return $song;
     }
 }

@@ -5,5 +5,7 @@
     <option name="directoryToApp" value="config" />
     <option name="pluginEnabled" value="true" />
     <option name="profilerCsvPath" value="" />
+    <option name="serviceClassAsIdAttribute" value="true" />
+    <option name="lastServiceGeneratorLanguage" value="yaml" />
   </component>
 </project>

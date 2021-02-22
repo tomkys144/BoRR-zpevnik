@@ -5,14 +5,14 @@ home:
 
 list:
     path: /list
-    controller: App\Controller\PageController:list
+    controller: App\Controller\SongController:list
     methods: get
 
 song:
     path: /song/{id}
-    controller: App\Controller\PageController:song
+    controller: App\Controller\SongController:song
     methods: get
 
 script:
     path: /script
-    controller: App\Controller\PageController:songCreatorScript
+    controller: App\Controller\SongController:songCreatorScript
