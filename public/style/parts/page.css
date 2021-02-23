@@ -44,6 +44,11 @@
     color: var(--primary_inv);
     width: 100%;
     height: 100%;
+    text-align: center;
+}
+
+#right_button:focus {
+    color: var(--contrast);
 }
 
 #left_button {
@@ -53,12 +58,33 @@
     color: var(--primary_inv);
     width: 100%;
     height: 100%;
+    text-align: center;
+}
+
+#left_button:focus {
+    color: var(--contrast);
 }
 
 #next {
     grid-area: right;
 }
 
+#next_span {
+    position: fixed;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: max-content;
+    right: 0.5em;
+}
+
 #previous {
     grid-area: left;
+}
+
+#previous_span {
+    position: fixed;
+    top: 50%;
+    transform: translate(0, -50%);
+    height: max-content;
+    left: 0.5em;
 }

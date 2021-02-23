@@ -16,4 +16,12 @@ class PageController extends AbstractController
             'right' => '/list'
         ]);
     }
+
+    /**
+     * @return Response
+     */
+    public function about(): Response
+    {
+        return $this->render('about.html.twig');
+    }
 }

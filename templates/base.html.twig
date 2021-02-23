@@ -37,14 +37,14 @@
 {% if left is defined %}
         <div id="previous">
                 <a href="{{ left }}" id="left">
-                        <button id="left_button" type="button">&lt</button>
+                    <button id="left_button" type="button"><span id="previous_span">&lt</span></button>
                 </a>
         </div>
 {% endif %}
 {% if right is defined %}
         <div id="next">
                 <a href="{{ right }}" id="right">
-                        <button id="right_button" type="button">&gt</button>
+                    <button id="right_button" type="button"><span id="next_span">&gt</span></button>
                 </a>
         </div>
 {% endif %}

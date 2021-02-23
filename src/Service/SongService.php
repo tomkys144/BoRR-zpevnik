@@ -136,6 +136,7 @@ class SongService
                 ->getRepository(Song::class)
                 ->getColumns(['id', 'name', 'author']);
             $data['list'] = $list;
+            $data['timestamp'] = $datetime->getTimestamp();
             if (file_put_contents(dirname(__DIR__) . '/../var/songs.yaml', Yaml::dump($data))) {
                 return true;
             }

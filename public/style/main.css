@@ -21,7 +21,7 @@ body {
         'left content right'
         'footer footer footer';
     grid-template-columns: 6vw auto 6vw;
-    grid-template-rows: minmax(3em, max-content) max-content auto minmax(3em, max-content);
+    grid-template-rows: minmax(3em, max-content) minmax(0, max-content) 1fr minmax(3em, max-content);
 
 }
 

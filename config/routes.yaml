@@ -3,6 +3,11 @@ home:
     controller: App\Controller\PageController:home
     methods: get
 
+about:
+    path: /about
+    controller: App\Controller\PageController:about
+    methods: get
+
 list:
     path: /list
     controller: App\Controller\SongController:list

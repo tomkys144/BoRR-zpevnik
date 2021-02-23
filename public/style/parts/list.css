@@ -8,6 +8,10 @@
     text-decoration: underline;
 }
 
+.list button:focus {
+    color: var(--contrast);
+}
+
 #songs.list {
     width: calc(50% - 2px);
     text-align: right;
