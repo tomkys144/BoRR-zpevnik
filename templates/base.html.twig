@@ -5,7 +5,8 @@
                 <meta charset="UTF-32">
                 <title>BoRR zpěvník</title>
                 <link rel="icon" href="{{ asset('imgs/borr.png') }}">
-                <link rel="stylesheet" href="{{ asset('style/main.css') }}"/>
+                {{ style.generateCSS() }}
+                <link rel="stylesheet" href="{{ asset('style/css.css') }}"/>
         {% endblock %}
         <script src="https://kit.fontawesome.com/a0e1808140.js" crossorigin="anonymous"></script>
 </head>
@@ -37,14 +38,14 @@
 {% if left is defined %}
         <div id="previous">
                 <a href="{{ left }}" id="left">
-                    <button id="left_button" type="button"><span id="previous_span">&lt</span></button>
+                    <button class="side-btn" type="button"><span class="prev">&lt</span></button>
                 </a>
         </div>
 {% endif %}
 {% if right is defined %}
         <div id="next">
                 <a href="{{ right }}" id="right">
-                    <button id="right_button" type="button"><span id="next_span">&gt</span></button>
+                    <button class="side-btn" type="button"><span class="next">&gt</span></button>
                 </a>
         </div>
 {% endif %}

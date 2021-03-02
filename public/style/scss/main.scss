@@ -1,0 +1,44 @@
+@import "vars";
+
+/* Defining project-wide style */
+body {
+  margin: 0;
+  background-color: $primary;
+  font-family: 'raleway', sans-serif;
+  color: $primary-inv;
+  min-height: 100vh;
+  display: grid;
+  grid-template-areas:
+    'nav nav nav'
+    'left header right'
+    'left content right'
+    'footer footer footer';
+  grid-template-columns: 6vw auto 6vw;
+  grid-template-rows: minmax(3em, max-content) minmax(0, max-content) 1fr minmax(3em, max-content);
+}
+
+h1 {
+  font-size: 5em;
+  text-align: center;
+}
+
+h2 {
+  font-size: 2em;
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+}
+
+button:focus {
+  border: none;
+  outline: none;
+}
+
+@import "parts/page";
+
+@import "parts/about";
+@import "parts/list";
+@import "parts/navigation";
+@import "parts/song";

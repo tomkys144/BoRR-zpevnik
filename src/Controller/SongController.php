@@ -7,13 +7,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * @property SongService songService
+ */
 class SongController extends AbstractController
 {
-    /**
-     * @var SongService
-     */
-    private SongService $songService;
-
     public function __construct(SongService $songService)
     {
         $this->songService = $songService;

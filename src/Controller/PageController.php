@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Service\SkautisService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 

@@ -11,6 +11,7 @@
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
+        "scssphp/scssphp": "^1.4",
         "skautis/skautis": "^2.2",
         "symfony/asset": "5.2.*",
         "symfony/console": "5.2.*",

@@ -9,13 +9,11 @@ use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Yaml\Yaml;
 
+/**
+ * @property EntityManagerInterface entityManager
+ */
 class SongService
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private EntityManagerInterface $entityManager;
-
     /**
      * SongService constructor.
      * @param EntityManagerInterface $entityManager

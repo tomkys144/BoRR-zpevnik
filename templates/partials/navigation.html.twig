@@ -1,4 +1,5 @@
 <ul class="navigation">
-    <li><a class="active" href="/">Domů</a></li>
-    <li><a class="active" href="/list">Rejstřík</a></li>
+    <li><a href="/">Domů</a></li>
+    <li><a href="/list">Rejstřík</a></li>
+    {{ render(controller('App\\Controller\\AccountController::navigation')) }}
 </ul>

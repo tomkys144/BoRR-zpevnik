@@ -1,0 +1,27 @@
+.credits {
+  button {
+    background: transparent;
+    border: none;
+    font-size: 1.25em;
+    padding: 5px;
+  }
+
+  #active:hover {
+    text-decoration: underline;
+  }
+
+  #left_column {
+    width: calc(50% - 2px);
+    text-align: right;
+    margin: 0;
+    float: left;
+  }
+
+  #right_column {
+    width: calc(50% - 2px);
+    text-align: left;
+    margin: 0px;
+    border-left: 4px solid $primary-inv;
+    float: right;
+  }
+}

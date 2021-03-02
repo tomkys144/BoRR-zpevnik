@@ -1,0 +1,77 @@
+#navigation {
+  grid-area: nav;
+  background-color: $primary_inv;
+  color: $primary;
+}
+
+#header {
+  grid-area: header;
+}
+
+#content {
+  grid-area: content;
+
+  p {
+    width: max-content;
+    height: max-content;
+    margin: 0 auto;
+  }
+}
+
+#footer {
+  grid-area: footer;
+  text-align: center;
+  background-color: $primary-inv;
+  color: $primary;
+  display: flex;
+  align-content: end;
+
+  span {
+    align-self: flex-end;
+    width: 100%;
+    margin-bottom: 0.5em;
+  }
+
+  button {
+    color: $primary;
+  }
+}
+
+.side-btn {
+  font-size: 2em;
+  background: transparent;
+  border: none;
+  color: $primary-inv;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+}
+
+.side-btn:focus {
+  color: $contrast;
+}
+
+#next {
+  grid-area: right;
+}
+
+.next span {
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: max-content;
+  right: 0.5em;
+}
+
+#previous {
+  grid-area: left;
+}
+
+.prev span {
+  position: fixed;
+  top: 50%;
+  transform: translate(0, -50%);
+  height: max-content;
+  left: 0.5em;
+}
+
