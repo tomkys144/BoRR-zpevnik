@@ -5,22 +5,24 @@
 {% endblock %}
 
 {% block content %}
-    <div class="list", id="main">
-        <div id="songs" class="list">
-            <a href="?sortBy=name"><button class="list" id="main" type="button"><h2>Jméno</h2></button></a><br>
+    <div class="list list-main">
+        <div class="list list-songs">
+            <a href="?sortBy=name"><button class="list list-main name" type="button"><b>Jméno</b></button></a><br>
         </div>
-        <div id="authors" class="list">
-            <a href="?sortBy=author"><button class="list" id="main" type="button"><h2>Autor</h2></button></a><br>
+        <div class="list list-authors">
+            <a href="?sortBy=author"><button class="list list-main author" type="button"><b>Autor</b></button></a><br>
         </div>
     </div>
-    <div id="songs" class="list">
+    <div class="list list-songs">
         {% for song in songs %}
             <a href="/song/{{ song.id }}"><button class="list" type="button">{{ song.name }}</button></a><br>
         {% endfor %}
+        <br>
     </div>
-    <div id="authors" class="list">
+    <div class="list list-authors">
         {% for song in songs %}
             <a href="/song/{{ song.id }}"><button class="list" type="button">{{ song.author }}</button></a><br>
         {% endfor %}
+        <br>
     </div>
 {% endblock %}

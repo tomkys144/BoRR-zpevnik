@@ -11,7 +11,10 @@ use Symfony\Component\Yaml\Yaml;
 
 class StyleService
 {
-    public function generateCSS()
+    /**
+     * @return string
+     */
+    public function generateCSS(): string
     {
         $meta = Yaml::parseFile(dirname(__DIR__) . '/../public/style/meta.yml');
 
@@ -22,7 +25,7 @@ class StyleService
         $datetime = new DateTime();
 
         $diff = abs($datetime->getTimestamp() - $meta['timestamp']) / 60;
-        if ($diff > 15) {
+        if ($diff > 15 || $_SERVER['HTTP_HOST'] == 'localhost:8080') {
             $compiler = new Compiler();
             $compiler->addImportPath(function($path) {
                 if (!file_exists(dirname(__DIR__) . '/../public/style/scss/'.$path)) return null;
@@ -32,9 +35,13 @@ class StyleService
             $main = $meta['main'];
             try {
                 file_put_contents(dirname(__DIR__) . '/../public/style/css.css', $compiler->compile('@import "' . $main . '";'));
+                $meta['timestamp'] = $datetime->getTimestamp();
+                file_put_contents(dirname(__DIR__) . '/../public/style/meta.yml', Yaml::dump($meta));
+                return '<!-- Generated CSS from SCSS -->';
             } catch (CompilerException $e) {
-                echo ($e->getMessage());
+                return $e->getMessage();
             }
         }
+        return '<!-- CSS already generated -->';
     }
 }

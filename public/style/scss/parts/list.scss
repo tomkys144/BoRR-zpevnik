@@ -1,5 +1,5 @@
 .list {
-  button{
+  button {
     background: transparent;
     border: none;
     font-size: 1.25em;
@@ -10,40 +10,38 @@
   }
 
   button:focus {
-    color:  $contrast;
+    color: $contrast;
+  }
+}
+
+.list-songs {
+  width: calc(50% - 2px);
+  text-align: right;
+  margin: 0;
+  float: left;
+}
+
+.list-authors {
+  width: calc(50% - 2px);
+  text-align: left;
+  margin: 0px;
+  border-left: 4px solid $primary_inv;
+  float: right;
+}
+
+.list-main {
+  width: 100%;
+  margin: 0;
+
+  div {
+    border-bottom: 4px solid $primary_inv;
   }
 
-  #songs {
-    width: calc(50% - 2px);
+  .name {
     text-align: right;
-    margin: 0;
-    float: left;
   }
 
-  #authors {
-    width: calc(50% - 2px);
+  .author {
     text-align: left;
-    margin: 0px;
-    border-left: 4px solid  $primary_inv;
-    float: right;
-  }
-
-  #main {
-    width: 100%;
-    margin: 0;
-
-    div {
-      border-bottom: 4px solid  $primary_inv;
-    }
-  }
-
-  #authors h2 {
-    text-align: left;
-    margin: 0;
-  }
-
-  #songs h2 {
-    text-align: right;
-    margin: 0;
   }
 }

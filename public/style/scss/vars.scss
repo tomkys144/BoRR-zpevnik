@@ -1,4 +1,5 @@
 // Basic variables
 $primary: whitesmoke;
 $primary-inv: invert($primary);
+$primary-mix: mix($primary, $primary-inv, 80%);
 $contrast: #750D0D;

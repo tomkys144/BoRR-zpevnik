@@ -4,11 +4,21 @@
     </li>
 {% else %}
     <li style="float: right" class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn">Dropdown</a>
+        <a href="javascript:void(0)" class="dropbtn" id="dropdown-master">adnnadklnadsnadslksandlsndkads</a>
         <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
+            <a class="dropdown-item" href="#">Link 1</a>
+            <a class="dropdown-item" href="#">Link 2</a>
+            <a class="dropdown-item" href="#">Link 3</a>
         </div>
     </li>
+    <script>
+        window.onload = function () {
+            var width = document.getElementById('dropdown-master').getBoundingClientRect().width;
+            let items = document.getElementsByClassName('dropdown-item')
+
+            for (let i=0; i < items.length; i++ ) {
+                items[i].setAttribute('style', 'min-width: ' + (width - 32) + 'px')
+            }
+        }
+    </script>
 {% endif %}

@@ -1,7 +1,5 @@
 #navigation {
   grid-area: nav;
-  background-color: $primary_inv;
-  color: $primary;
 }
 
 #header {
@@ -55,7 +53,7 @@
   grid-area: right;
 }
 
-.next span {
+.next {
   position: fixed;
   top: 50%;
   transform: translate(0, -50%);
@@ -67,7 +65,7 @@
   grid-area: left;
 }
 
-.prev span {
+.prev {
   position: fixed;
   top: 50%;
   transform: translate(0, -50%);
