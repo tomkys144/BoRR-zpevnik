@@ -1,9 +1,0 @@
-#help {
-    background: transparent;
-    border: none;
-    font-size: 1em;
-}
-
-#help:hover {
-    text-decoration: underline;
-}
