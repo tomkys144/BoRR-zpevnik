@@ -24,3 +24,14 @@ verse::after {
   bottom: 0;
   width: max-content;
 }
+
+.song-header {
+  max-width: 12ch;
+  overflow-wrap: normal;
+  margin: 1rem auto auto;
+}
+
+.song-body {
+  max-width: 40ch;
+  overflow-wrap: normal;
+}

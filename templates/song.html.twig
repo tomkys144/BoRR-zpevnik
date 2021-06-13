@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block header %}
-    <h1>{{ name }}</h1>
+    <h1 class="song-header">{{ name }}</h1>
     <h2>{{ author }}</h2>
     {% if capo is not null %}
         <h3>Capo: {{ capo }}</h3>
@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block content %}
-    <p id="content">
+    <p id="content" class="song-body">
         {{ body | raw}}
     </p>
     {% if made_gender == 2 %}

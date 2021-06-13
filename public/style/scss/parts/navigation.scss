@@ -1,4 +1,12 @@
-.navigation {
+#navigation {
+  .navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: $primary-inv;
+  }
+
   li {
     float: left;
   }
@@ -26,6 +34,7 @@
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 1;
     right: 0;
+    width: max-content;
   }
 
   .dropdown-content a {
@@ -34,7 +43,7 @@
     text-decoration: none;
     display: block;
     text-align: left;
-    width: max-content;
+    width: available;
   }
 
   .dropdown-content a:hover {
@@ -44,11 +53,4 @@
   .dropdown:hover .dropdown-content {
     display: block;
   }
-}
-.navbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: $primary-inv;
 }

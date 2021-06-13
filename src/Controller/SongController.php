@@ -104,7 +104,11 @@ class SongController extends AbstractController
             $this->songService->createSong($data);
         }
         return new Response(
-            '<html><body>success</body></html>'
+            '<html lang="en"><body>success</body></html>'
         );
+    }
+
+    public function editor()
+    {
     }
 }

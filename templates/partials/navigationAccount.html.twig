@@ -4,11 +4,16 @@
     </li>
 {% else %}
     <li style="float: right" class="dropdown">
-        <a href="javascript:void(0)" class="dropbtn" id="dropdown-master">adnnadklnadsnadslksandlsndkads</a>
+        <a href="javascript:void(0)" class="dropbtn" id="dropdown-master">{{ info.Name }}</a>
         <div class="dropdown-content">
-            <a class="dropdown-item" href="#">Link 1</a>
-            <a class="dropdown-item" href="#">Link 2</a>
-            <a class="dropdown-item" href="#">Link 3</a>
+            <a class="dropdown-item" href="/favourite/{{ info.ID }}">Oblíbené písničky</a>
+            {% if isMaintainer %}
+                <a class="dropdown-item" href="editor">Editor</a>
+            {% endif %}
+            {% if isAdmin %}
+                <a class="dropdown-item" href="admin">Admin</a>
+            {% endif %}
+            <a class="dropdown-item" href="{{ url }}">Odhlásit se</a>
         </div>
     </li>
     <script>
